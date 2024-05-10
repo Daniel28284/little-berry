@@ -65,7 +65,12 @@ class bluetooth:
 if __name__ == "__main__":
     print("sou um teste bluetooth")
     bluetooth0=bluetooth()
-    bluetooth.enviarMensagem(bluetooth.referenciaSocket,"olaaaa eu sou um teste")
+
+    if bluetooth.referenciaSocket!=False:
+        bluetooth.enviarMensagem(bluetooth.referenciaSocket,"olaaaa eu sou um teste")
+
+    else:
+        print("ligação com erro")
+
     print("lendo o serial")
     print("mensagem recebida", bluetooth.lerMensagem)
-	

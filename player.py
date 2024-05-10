@@ -11,10 +11,10 @@ class player:
 
     def __init__(self):
         self.instance = vlc.Instance()
-        self.player = instance.media_player_new()
+        self.player = self.instance.media_player_new()
 
 
-    def playVideo(seld, nDoVideo):
+    def playVideo(self, nDoVideo):
         '''
         1-sad
         2-happy
@@ -47,7 +47,7 @@ class player:
 
             # Replace with the path to the new video file
             new_video_path = '/path/to/your/new/video.mp4'
-            new_media = instance.media_new(new_video_path)
+            new_media = self.instance.media_new(new_video_path)
             player.set_media(new_media)
 
             # Play the new video
