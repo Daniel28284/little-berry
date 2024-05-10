@@ -22,7 +22,7 @@ class faceTracking:
     def teste(self):
         try:
             while True:
-                time.sleep(2) # possivel controlar as frames por segundo pelo delay 
+                time.sleep(1.5) # possivel controlar as frames por segundo pelo delay 
                 # Captura uma imagem diretamente em um array NumPy
                 buffer = self.picamera2.capture_array()
                 image = np.array(buffer, dtype=np.uint8)
