@@ -4,50 +4,60 @@ import signal
 import sys
 
 class player:
+    #video_path = '/home/daniel/Downloads/2.mp4'
+    caraFeliz=0#'caminho para o video'
+    caraTriste=0#'caminho pra o o video'
 
 
-    
-    # Replace with the actual path to your video file
-    video_path = '/home/daniel/Downloads/2.mp4'
-
-    # Create a VLC instance
-    instance = vlc.Instance()
-
-    # Create a media player
-    player = instance.media_player_new()
-
-    # Load the video file
-    media = instance.media_new(video_path)
-    player.set_media(media)
-
-    # Set full screen mode
-    player.set_fullscreen(True)
+    def __init__(self):
+        self.instance = vlc.Instance()
+        self.player = instance.media_player_new()
 
 
+    def playVideo(seld, nDoVideo):
+        '''
+        1-sad
+        2-happy
 
-    # Play the video
-    player.play()
+        '''
+        #video_path = '/home/daniel/Downloads/2.mp4'
+        caraFeliz=0#'caminho para o video'
+        caraTriste=0#'caminho pra o o video'
 
-    try:
-        # Wait for 20 seconds
-        time.sleep(20)
+        match nDoVideo:
+            case 1:
+                media = self.instance.media_new(caraFeliz)
+            case 2:
+                media = self.instance.media_new(caraTriste)
+        
+        
+        self.player.set_media(media)
 
-        # Stop the player to release resources
-        player.stop()
+        # Set full screen mode
+        self.player.set_fullscreen(True)
+        # Play the video
+        self.player.play()
 
-        # Replace with the path to the new video file
-        new_video_path = '/path/to/your/new/video.mp4'
-        new_media = instance.media_new(new_video_path)
-        player.set_media(new_media)
+        try:
+            # Wait for 20 seconds
+            time.sleep(20)
 
-        # Play the new video
-        player.play()
+            # Stop the player to release resources
+            player.stop()
 
-        # Wait for the new video to finish (you can add more logic here if needed)
-        while True:
-            pass
+            # Replace with the path to the new video file
+            new_video_path = '/path/to/your/new/video.mp4'
+            new_media = instance.media_new(new_video_path)
+            player.set_media(new_media)
 
-    except KeyboardInterrupt:
-        # Handle Ctrl+C: Stop the player and exit gracefully
-        player.stop()
-        sys.exit(0)
+            # Play the new video
+            player.play()
+
+            # Wait for the new video to finish (you can add more logic here if needed)
+            while True:
+                pass
+
+        except KeyboardInterrupt:
+            # Handle Ctrl+C: Stop the player and exit gracefully
+            player.stop()
+            sys.exit(0)

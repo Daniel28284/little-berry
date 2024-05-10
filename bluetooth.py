@@ -56,4 +56,16 @@ class bluetooth:
         except Exception as e:
             print("Erro a receber a mensagem pedida, Provalmemte: socket/conexao fechada", e)
             return False
+        
+
+
+
+
+
+if __name__ == "__main__":
+    print("sou um teste bluetooth")
+    bluetooth0=bluetooth()
+    bluetooth.enviarMensagem(bluetooth.referenciaSocket,"olaaaa eu sou um teste")
+    print("lendo o serial")
+    print("mensagem recebida", bluetooth.lerMensagem)
 	
