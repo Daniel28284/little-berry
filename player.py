@@ -3,7 +3,7 @@ import time
 import signal
 import sys
 
-class player1:
+class playerClass:
     #video_path = '/home/daniel/Downloads/2.mp4'
     caraFeliz=0#'caminho para o video'
     caraTriste=0#'caminho pra o o video'
@@ -17,9 +17,12 @@ class player1:
     def playVideo(self,nDoVideo=1):
          #video_path = '/home/daniel/Documents/little-berry/Faces/'
         '''
-        1-sad
-        2-happy
-
+        1-piscar 
+        2-bluetooth off
+        3-bluetooth on
+        4-olhos esquerda
+        5-olhos direita
+        404-erro
         '''
 
         if(nDoVideo==1):
@@ -39,8 +42,7 @@ class player1:
         media = self.instance.media_new(url)
         self.player.set_media(media)
 
-        event_manager = self.player.event_manager()
-        event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.on_end_reached)
+        
        
 
         self.player.play()
@@ -57,14 +59,51 @@ class player1:
     def teste(self):
         media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/piscar.mp4')
         self.player.set_media(media)
+        self.player.play()
+        time.sleep(3)
+        
+
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4')
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(10)
+
+
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4')
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(10)
+
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4')
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(15)
+
+
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos direita.mp4')
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(15)
+
+
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/erro.mp4')
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(3)
+        
+
+        
+
+        
+
+        
+
         
     
 
     
 
-    def on_end_reached(self, event):
-        print("O vídeo terminou de ser reproduzido.")
-        self.player.stop()
+  
         
 
         
@@ -73,6 +112,8 @@ class player1:
 
 if __name__ == "__main__":
     print("eu sou um teste de imagem ")
-    playerTeste=player1()
+    playerTeste=playerClass()
+    playerTeste.teste()
+    print("teste de imagem completo")
     playerTeste.playVideo()
    
