@@ -1,33 +1,41 @@
 import RPi.GPIO as GPIO
 import time
 
+# Set the GPIO mode
+GPIO.setmode(GPIO.BCM)
 
-class servoMotor:
+# Set the GPIO pin for the servo
+servo_pin = 18
 
-    def __init__(self):
-        servoPIN = 17
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(servoPIN, GPIO.OUT)
-        self.p = GPIO.PWM(servoPIN, 50)  # 50Hz frequency
-        self.p.start(0)
+# Set the PWM frequency (Hz)
+pwm_frequency = 50
 
+# Set the duty cycle ranges for the servo
+duty_cycle_min = 1  # in percentage
+duty_cycle_max = 85  # in percentage
 
+# Initialize the GPIO pin for the servo
+GPIO.setup(servo_pin, GPIO.OUT)
 
-    def teste():
-        try:
-            while True:
-                # Rotate from 0 to 180 degrees
-                for angle in range(0, 181, 10):
-                    duty_cycle = angle / 18 + 2
-                    p.ChangeDutyCycle(duty_cycle)
-                    time.sleep(0.5)
+# Initialize PWM for the servo
+pwm = GPIO.PWM(servo_pin, pwm_frequency)
 
-                # Rotate back from 180 to 0 degrees
-                for angle in range(180, -1, -10):
-                    duty_cycle = angle / 18 + 2
-                    p.ChangeDutyCycle(duty_cycle)
-                    time.sleep(0.5)
+# Start PWM with initial duty cycle (servo at minimum position)
+pwm.start(duty_cycle_min)
 
-        except KeyboardInterrupt:
-            p.stop()
-            GPIO.cleanup()
+try:
+    while True:
+        # Prompt the user to enter a new duty cycle value
+        new_duty_cycle = float(input("Enter a duty cycle value (1-85): "))
+        
+        # Check if the input value is within the valid range
+        if duty_cycle_min <= new_duty_cycle <= duty_cycle_max:
+            # Change the duty cycle
+            pwm.ChangeDutyCycle(new_duty_cycle)
+        else:
+            print("Invalid duty cycle value. Please enter a value between 1 and 85.")
+
+except KeyboardInterrupt:
+    # Cleanup
+    pwm.stop()
+    GPIO.cleanup()
