@@ -44,7 +44,7 @@ class bluetooth:
             iinput=self.ser.readline()
 
             #Decodificar os bytes vindos do bluetooth e guarda os na string
-            decoded_output = serial_output.decode('utf-8')
+            decoded_output = iinput.decode('utf-8')
             #Configura o descodificador para atuar conforme a norma utf-8
             cleaned_output = decoded_output.strip()
             #Faz atuar o codificador e guarda o resultado na variavel
@@ -63,14 +63,15 @@ class bluetooth:
 
 
 if __name__ == "__main__":
-    print("sou um teste bluetooth")
-    bluetooth0=bluetooth()
+    print("Sou um teste bluetooth")
+    bluetooth0 = bluetooth()
 
-    if bluetooth.referenciaSocket!=False:
-        bluetooth.enviarMensagem(bluetooth.referenciaSocket,"olaaaa eu sou um teste")
-
+    canal = bluetooth0.referenciaSocket()
+    if canal != False:
+        bluetooth0.enviarMensagem(canal, "eu sou um teste de bluetooth")
     else:
-        print("ligação com erro")
+        print("Ligação com erro")
 
-    print("lendo o serial")
-    print("mensagem recebida", bluetooth.lerMensagem)
+    print("Lendo o serial")
+    bluetooth0.lerMensagem(canal)
+    print("teste completo")
