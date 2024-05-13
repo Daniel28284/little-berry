@@ -14,34 +14,58 @@ class player1:
         self.player = self.instance.media_player_new()
 
 
-    def playVideo(self):
+    def playVideo(self,nDoVideo=1):
+         #video_path = '/home/daniel/Documents/little-berry/Faces/'
         '''
         1-sad
         2-happy
 
         '''
-        #video_path = '/home/daniel/Documents/little-berry/Faces/'
-        caraPiscar='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
-        caraTriste=0#'caminho pra o o video'
 
+        if(nDoVideo==1):
+            url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
+        elif(nDoVideo==2):
+            url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
+        elif(nDoVideo==3):
+            url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
+        elif(nDoVideo==4):
+            url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
+        elif(nDoVideo==5):
+            url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
+        elif(nDoVideo==404):
+            url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
         
         
-        media = self.instance.media_new(caraPiscar)
+        media = self.instance.media_new(url)
         self.player.set_media(media)
 
+        event_manager = self.player.event_manager()
+        event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.on_end_reached)
        
 
-        
-        
-        # Play the video
         self.player.play()
+
+        time.sleep(3)
+
+
+        
 
         while True:
             pass
 
 
-    def all(self):
-        print("ola")
+    def teste(self):
+        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/piscar.mp4')
+        self.player.set_media(media)
+        
+    
+
+    
+
+    def on_end_reached(self, event):
+        print("O vídeo terminou de ser reproduzido.")
+        self.player.stop()
+        
 
         
 
