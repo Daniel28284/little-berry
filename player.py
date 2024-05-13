@@ -3,7 +3,7 @@ import time
 import signal
 import sys
 
-class player:
+class player1:
     #video_path = '/home/daniel/Downloads/2.mp4'
     caraFeliz=0#'caminho para o video'
     caraTriste=0#'caminho pra o o video'
@@ -14,50 +14,41 @@ class player:
         self.player = self.instance.media_player_new()
 
 
-    def playVideo(self, nDoVideo):
+    def playVideo(self):
         '''
         1-sad
         2-happy
 
         '''
-        #video_path = '/home/daniel/Downloads/2.mp4'
-        caraFeliz=0#'caminho para o video'
+        #video_path = '/home/daniel/Documents/little-berry/Faces/'
+        caraPiscar='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
         caraTriste=0#'caminho pra o o video'
 
-        match nDoVideo:
-            case 1:
-                media = self.instance.media_new(caraFeliz)
-            case 2:
-                media = self.instance.media_new(caraTriste)
         
         
+        media = self.instance.media_new(caraPiscar)
         self.player.set_media(media)
 
-        # Set full screen mode
-        self.player.set_fullscreen(True)
+       
+
+        
+        
         # Play the video
         self.player.play()
 
-        try:
-            # Wait for 20 seconds
-            time.sleep(20)
+        while True:
+            pass
 
-            # Stop the player to release resources
-            player.stop()
 
-            # Replace with the path to the new video file
-            new_video_path = '/path/to/your/new/video.mp4'
-            new_media = self.instance.media_new(new_video_path)
-            player.set_media(new_media)
+    def all(self):
+        print("ola")
 
-            # Play the new video
-            player.play()
+        
 
-            # Wait for the new video to finish (you can add more logic here if needed)
-            while True:
-                pass
 
-        except KeyboardInterrupt:
-            # Handle Ctrl+C: Stop the player and exit gracefully
-            player.stop()
-            sys.exit(0)
+
+if __name__ == "__main__":
+    print("eu sou um teste de imagem ")
+    playerTeste=player1()
+    playerTeste.playVideo()
+   
