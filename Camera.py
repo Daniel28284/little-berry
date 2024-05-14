@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 from picamera2 import Picamera2
 import time
+
+# TODO: Adicionar o movimento do motor da base.
+
+
 class faceTracking:
     def __init__(self):
         

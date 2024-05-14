@@ -59,10 +59,8 @@ class neoPixels:
 			self.pixels[i] = (r, g, b)
 			self.pixels.show()
 			time.sleep(delay)
-			
-			
 		
-		
+
 	#mover 1 led a volta da fita
 	#verificar o for acho que tem o i+1 a toa 
 	def mover_led(self, delay,red,green,blue):
@@ -76,6 +74,15 @@ class neoPixels:
 			self.pixels.show()
 			
 			i=i+1
+
+
+	def main():
+
+		while True:
+			if db.PresetSorrir == True:
+				sorrir()
+			elif db.animationToPlay == 1:
+				triste()
 	
 
 			
