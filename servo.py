@@ -1,41 +1,37 @@
-import RPi.GPIO as GPIO
+import pigpio
 import time
 
-# Set the GPIO mode
-GPIO.setmode(GPIO.BCM)
+# GPIO pin connected to the servo
+servo_gpio_pin = 18
+servo_gpio_pin1 = 17
 
-# Set the GPIO pin for the servo
-servo_pin = 18
+# Set servo parameters
+servo_min_pulse_width = 500  # in microseconds
+servo_max_pulse_width = 2500  # in microseconds
+servo_frequency = 50  # in Hz
 
-# Set the PWM frequency (Hz)
-pwm_frequency = 50
+# Initialize pigpio
+pi = pigpio.pi()
 
-# Set the duty cycle ranges for the servo
-duty_cycle_min = 1  # in percentage
-duty_cycle_max = 85  # in percentage
-
-# Initialize the GPIO pin for the servo
-GPIO.setup(servo_pin, GPIO.OUT)
-
-# Initialize PWM for the servo
-pwm = GPIO.PWM(servo_pin, pwm_frequency)
-
-# Start PWM with initial duty cycle (servo at minimum position)
-pwm.start(duty_cycle_min)
+# Set servo pulse width range
+pi.set_servo_pulsewidth(servo_gpio_pin, 0)
+pi.set_servo_pulsewidth(servo_gpio_pin, servo_min_pulse_width)
 
 try:
     while True:
-        # Prompt the user to enter a new duty cycle value
-        new_duty_cycle = float(input("Enter a duty cycle value (1-85): "))
-        
-        # Check if the input value is within the valid range
-        if duty_cycle_min <= new_duty_cycle <= duty_cycle_max:
-            # Change the duty cycle
-            pwm.ChangeDutyCycle(new_duty_cycle)
-        else:
-            print("Invalid duty cycle value. Please enter a value between 1 and 85.")
+        # Move servo to minimum position
+        print("Moving to minimum position")
+        pi.set_servo_pulsewidth(servo_gpio_pin, servo_min_pulse_width)
+        pi.set_servo_pulsewidth(servo_gpio_pin1, servo_max_pulse_width)
+        time.sleep(1)
+
+        # Move servo to maximum position
+        print("Moving to maximum position")
+        pi.set_servo_pulsewidth(servo_gpio_pin, servo_max_pulse_width)
+        pi.set_servo_pulsewidth(servo_gpio_pin1, servo_min_pulse_width)
+        time.sleep(1)
 
 except KeyboardInterrupt:
-    # Cleanup
-    pwm.stop()
-    GPIO.cleanup()
+    print("\nStopping servo control")
+    pi.set_servo_pulsewidth(servo_gpio_pin, 0)
+    pi.stop()
