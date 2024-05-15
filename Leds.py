@@ -14,10 +14,10 @@ class neoPixels:
 		self.num_pixels = 72
 
 		# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed
-		self.ORDER = neopixel.RGB
+		self.ORDER = neopixel.GRB
 
 		#onde diz o brightness define a intensidade maxima dos leds
-		intensidadeDosLeds=db.intensidadeDosLeds
+		intensidadeDosLeds=1
 		self.pixels = neopixel.NeoPixel(
 			self.pixel_pin, self.num_pixels, brightness= intensidadeDosLeds, auto_write=False, pixel_order=self.ORDER
 		)
@@ -66,7 +66,7 @@ class neoPixels:
 
 	#mover 1 led a volta da fita
 	#verificar o for acho que tem o i+1 a toa 
-	def mover_led(self, delay,red,green,blue):
+	def mover_led(self,red,green,blue, delay):
 		for i in range(self.num_pixels):
 			self.pixels[i]=(red,green,blue)
 			self.pixels.show()
@@ -79,14 +79,31 @@ class neoPixels:
 			i=i+1
 
 
-	def main():
+	def main(self):
 		while True:
-			loop=db.loopLeds
+			#roxo= 112, 48, 160 #confirmar
+			#azul= 0,0,255
+			delay=0.1
+			loop=db.CONTROLloopLeds
+			animacao=db.CONTROLanimacaoLeds
+			cor=db.cor
 			while loop:
-				if db.PresetSorrir == True:
-					sorrir()
-				elif db.animationToPlay == 1:
-					triste()
+
+				if animacao == 1:
+					if cor==1:
+						self.limpar(0,0,255,delay)
+					elif cor==2:
+						self.limpar(112, 48, 160, delay)
+				elif animacao == 2:
+					if cor==1:
+						self.limpar(0,0,255,delay)
+					elif cor==2:
+						self.limpar(112, 48, 160, delay)
+						
+				
+
+				loop=db.CONTROLloopLeds
+				animacao=db.CONTROLanimacaoLeds
 
 				
 				
@@ -106,5 +123,10 @@ class neoPixels:
 if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
-	leds.limpar(0,0,255, 0.5)
+	while True:
+		leds.mover_led(100, 0, 200,0)
+		leds.limpar(50, 0, 200,0.1)
+
+		
+
     

@@ -56,7 +56,7 @@ class bluetooth:
             intensidadeDosLeds, cor, horasDoAlarme1, nomeDoAlarme1, somDoAlarme1, estiloDosLeds1, horasDoAlarme2, nomeDoAlarme2, somDoAlarme2, estiloDosLeds2, horasDoAlarme3, nomeDoAlarme3, somDoAlarme3, estiloDosLeds3, chamada, nomeDaChamada, somDoToque, estiloDosLeds, notificacao, nomeDaNotificacao, conteudo, somDoToqueNotificacao, estiloDosLedsNotificacao =mensangemBruta
 
 
-            db.ligarLeds= True
+            
             db.intensidadeDosLeds = intensidadeDosLeds
             db.cor = cor
             db.horasDoAlarme1 = horasDoAlarme1
