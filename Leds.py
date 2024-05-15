@@ -5,7 +5,9 @@ import neopixel
 
 class neoPixels:
 	def __init__(self):
+		
 		#Os Neopixels apenas funcionam se ligados ao pinos D10, D12, D18 or D21, porque sao os unicos que tem PWM
+		#sao os pinos gpio 
 		self.pixel_pin = board.D18
 
 		# O numero de pixel que a fita tem
@@ -15,8 +17,9 @@ class neoPixels:
 		self.ORDER = neopixel.RGB
 
 		#onde diz o brightness define a intensidade maxima dos leds
+		intensidadeDosLeds=db.intensidadeDosLeds
 		self.pixels = neopixel.NeoPixel(
-			self.pixel_pin, self.num_pixels, brightness=1, auto_write=False, pixel_order=self.ORDER
+			self.pixel_pin, self.num_pixels, brightness= intensidadeDosLeds, auto_write=False, pixel_order=self.ORDER
 		)
 
 	#faz parte do efeito de andar a roda multicor
@@ -77,12 +80,21 @@ class neoPixels:
 
 
 	def main():
-
 		while True:
-			if db.PresetSorrir == True:
-				sorrir()
-			elif db.animationToPlay == 1:
-				triste()
+			loop=db.loopLeds
+			while loop:
+				if db.PresetSorrir == True:
+					sorrir()
+				elif db.animationToPlay == 1:
+					triste()
+
+				
+				
+
+
+
+
+			
 	
 
 			

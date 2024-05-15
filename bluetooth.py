@@ -51,6 +51,39 @@ class bluetooth:
 
             #Imprimir a mensagem
             print("mensgem recebida:", cleaned_output)
+            
+            mensangemBruta=cleaned_output.split(";")
+            intensidadeDosLeds, cor, horasDoAlarme1, nomeDoAlarme1, somDoAlarme1, estiloDosLeds1, horasDoAlarme2, nomeDoAlarme2, somDoAlarme2, estiloDosLeds2, horasDoAlarme3, nomeDoAlarme3, somDoAlarme3, estiloDosLeds3, chamada, nomeDaChamada, somDoToque, estiloDosLeds, notificacao, nomeDaNotificacao, conteudo, somDoToqueNotificacao, estiloDosLedsNotificacao =mensangemBruta
+
+
+            db.ligarLeds= True
+            db.intensidadeDosLeds = intensidadeDosLeds
+            db.cor = cor
+            db.horasDoAlarme1 = horasDoAlarme1
+            db.nomeDoAlarme1 = nomeDoAlarme1
+            db.somDoAlarme1 = somDoAlarme1
+            db.estiloDosLeds1 = estiloDosLeds1
+            db.horasDoAlarme2 = horasDoAlarme2
+            db.nomeDoAlarme2 = nomeDoAlarme2
+            db.somDoAlarme2 = somDoAlarme2
+            db.estiloDosLeds2 = estiloDosLeds2
+            db.horasDoAlarme3 = horasDoAlarme3
+            db.nomeDoAlarme3 = nomeDoAlarme3
+            db.somDoAlarme3 = somDoAlarme3
+            db.estiloDosLeds3 = estiloDosLeds3
+            db.chamada = chamada
+            db.nomeDaChamada = nomeDaChamada
+            db.somDoToque = somDoToque
+            db.estiloDosLeds = estiloDosLeds
+            db.notificacao = notificacao
+            db.nomeDaNotificacao = nomeDaNotificacao
+            db.conteudo = conteudo
+            db.somDoToqueNotificacao = somDoToqueNotificacao
+            db.estiloDosLedsNotificacao = estiloDosLedsNotificacao
+            
+            
+            
+            
             return cleaned_output
             
         except Exception as e:
