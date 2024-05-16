@@ -14,8 +14,7 @@ class playerClass:
         self.player = self.instance.media_player_new()
 
 
-    def playVideo(self,nDoVideo=1):
-         #video_path = '/home/daniel/Documents/little-berry/Faces/'
+    def playVideo(self):
         '''
         1-piscar 
         2-bluetooth off
@@ -25,35 +24,66 @@ class playerClass:
         404-erro
         '''
 
-        if(nDoVideo==1):
-            url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
-        elif(nDoVideo==2):
-            url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
-        elif(nDoVideo==3):
-            url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
-        elif(nDoVideo==4):
-            url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
-        elif(nDoVideo==5):
-            url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
-        elif(nDoVideo==404):
-            url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
-        
-        
+         #video_path = '/home/daniel/Documents/little-berry/Faces/'
+       
+        url=0 #meter o url de um video de carregamento
+
+
         media = self.instance.media_new(url)
         self.player.set_media(media)
 
-        
-       
-
         self.player.play()
 
-        time.sleep(3)
+        time.sleep(5)
 
 
         
+        
 
-        while True:
-            pass
+
+        try:
+            while True:
+
+                nDoVideo=db.CONTROLplayvideo
+                if videoAtual!=nDoVideo:
+
+                    if nDoVideo==0:
+                        url=0 #meter o url de um video de carregamento
+                    elif(nDoVideo==1):
+                        url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
+                    elif(nDoVideo==2):
+                        url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
+                    elif(nDoVideo==3):
+                        url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
+                    elif(nDoVideo==4):
+                        url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
+                    elif(nDoVideo==5):
+                        url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
+                    elif(nDoVideo==404):
+                        url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                else:
+                    value = self.player.is_playing()
+                    if value == 0:
+                        self.player.set_media(media)
+                        videoAtual=nDoVideo
+                        self.player.play()
+                        time.sleep(1) #delay para dar tempo de iniciar o video
+        except:
+            try:
+                print("erro a representar o video")
+                db.ERRORplayVideo=True
+                value = self.player.is_playing()
+                if value == 0:
+                    url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                    self.player.set_media(media)
+                    videoAtual=nDoVideo
+                    self.player.play()
+                    time.sleep(1) #delay para dar tempo de iniciar o video
+            except:
+                db.FATALERRORplayVideo=True
+
+
+            
 
 
     def teste(self):
@@ -113,7 +143,7 @@ class playerClass:
 if __name__ == "__main__":
     print("eu sou um teste de imagem ")
     playerTeste=playerClass()
-    playerTeste.teste()
+    #playerTeste.teste()
     print("teste de imagem completo")
     playerTeste.playVideo()
    

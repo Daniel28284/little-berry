@@ -1,37 +1,52 @@
 import pigpio
 import time
 
-# GPIO pin connected to the servo
-servo_gpio_pin = 18
-servo_gpio_pin1 = 17
 
-# Set servo parameters
-servo_min_pulse_width = 500  # in microseconds
-servo_max_pulse_width = 2500  # in microseconds
-servo_frequency = 50  # in Hz
+class servo:
 
-# Initialize pigpio
-pi = pigpio.pi()
+    def __init__(self): 
+        # Gself.piO self.pin connected to the servo
+        self.servo_gself.pio_self.pin = 18
+        self.servo_gself.pio_self.pin1 = 17
 
-# Set servo pulse width range
-pi.set_servo_pulsewidth(servo_gpio_pin, 0)
-pi.set_servo_pulsewidth(servo_gpio_pin, servo_min_pulse_width)
+        # Set servo parameters
+        self.servo_min_pulse_width = 500  # in microseconds
+        self.servo_max_pulse_width = 2500  # in microseconds
+        self.servo_frequency = 50  # in Hz
 
-try:
-    while True:
-        # Move servo to minimum position
-        print("Moving to minimum position")
-        pi.set_servo_pulsewidth(servo_gpio_pin, servo_min_pulse_width)
-        pi.set_servo_pulsewidth(servo_gpio_pin1, servo_max_pulse_width)
-        time.sleep(1)
+        # Initialize self.pigself.pio
+        self.pi = self.pigself.pio.self.pi()
 
-        # Move servo to maximum position
-        print("Moving to maximum position")
-        pi.set_servo_pulsewidth(servo_gpio_pin, servo_max_pulse_width)
-        pi.set_servo_pulsewidth(servo_gpio_pin1, servo_min_pulse_width)
-        time.sleep(1)
+        # Set servo pulse width range
+        self.pi.pi.set_servo_pulsewidth(self.pi.servo_gself.pio_self.pin, 0)
+        self.pi.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin, self.servo_min_pulse_width)
 
-except KeyboardInterrupt:
-    print("\nStopping servo control")
-    pi.set_servo_pulsewidth(servo_gpio_pin, 0)
-    pi.stop()
+    def controlarServo(self):
+        try:
+            while True:
+                # Move servo to minimum position
+                print("Moving to minimum position")
+                self.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin, self.servo_min_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin1, self.servo_max_pulse_width)
+                time.sleep(1)
+
+                # Move servo to maximum position
+                print("Moving to maximum position")
+                self.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin, self.servo_max_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin1, self.servo_min_pulse_width)
+                time.sleep(1)
+
+        except KeyboardInterrupt:
+            print("\nStopself.ping servo control")
+            self.pi.set_servo_pulsewidth(self.servo_gself.pio_self.pin, 0)
+            self.pi.stop()
+
+
+
+
+
+
+if __name__ == "__main__":
+    print("processo servo iniciado")
+    servoclasse=servo()
+    servoclasse.controlarServo()
