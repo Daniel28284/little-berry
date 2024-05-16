@@ -1,4 +1,9 @@
 import serial
+import BaseDados
+
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryConfig(conn)
 
 class bluetooth:
 	

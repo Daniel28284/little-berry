@@ -1,7 +1,11 @@
 import time
 import board
 import neopixel
+import BaseDados
 
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryConfig(conn)
 
 class neoPixels:
 	def __init__(self):
@@ -54,12 +58,12 @@ class neoPixels:
 			time.sleep(wait)
 
 	#efeito limpar que começa de uma lado e vai acendedo os leds com delay e as cores que podem ser passadas
-	def limpar(self, r,g,b,delay):
+	def limpar(self, rgb ,delay):
 		'''
 		r,g,b : RGB compoennets 0-255; delay: seconds
 		'''
 		for i in range(self.num_pixels):
-			self.pixels[i] = (r, g, b)
+			self.pixels[i] = rgb
 			self.pixels.show()
 			time.sleep(delay)
 		
@@ -81,29 +85,20 @@ class neoPixels:
 
 	def main(self):
 		while True:
-			#roxo= 112, 48, 160 #confirmar
-			#azul= 0,0,255
+			cores = ((112, 48, 160), ( 0,0,255)) # (roxo, azul)
 			delay=0.1
-			loop=db.CONTROLloopLeds
-			animacao=db.CONTROLanimacaoLeds
-			cor=db.cor
-			while loop:
 
-				if animacao == 1:
-					if cor==1:
-						self.limpar(0,0,255,delay)
-					elif cor==2:
-						self.limpar(112, 48, 160, delay)
-				elif animacao == 2:
-					if cor==1:
-						self.limpar(0,0,255,delay)
-					elif cor==2:
-						self.limpar(112, 48, 160, delay)
+			while controldb.CONTROLloopLeds:
+
+				if controldb.CONTROLanimacaoLeds == 1:
+					self.limpar(cores[configdb.cor],delay)
+				elif controldb.CONTROLanimacaoLeds == 2:
+					self.mover_led(cores[configdb.cor],delay)
 						
 				
 
-				loop=db.CONTROLloopLeds
-				animacao=db.CONTROLanimacaoLeds
+
+
 
 				
 				
