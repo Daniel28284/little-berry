@@ -3,7 +3,7 @@ import time
 import signal
 import sys
 
-class playerClass:
+class PlayerClass:
     #video_path = '/home/daniel/Downloads/2.mp4'
     caraFeliz=0#'caminho para o video'
     caraTriste=0#'caminho pra o o video'
@@ -26,7 +26,7 @@ class playerClass:
 
          #video_path = '/home/daniel/Documents/little-berry/Faces/'
        
-        url=0 #meter o url de um video de carregamento
+        url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
 
 
         media = self.instance.media_new(url)
@@ -141,8 +141,8 @@ class playerClass:
 
 
 if __name__ == "__main__":
-    print("eu sou um teste de imagem ")
-    playerTeste=playerClass()
+    print("eu sopu um teste de imagem ")
+    playerTeste=PlayerClass()
     #playerTeste.teste()
     print("teste de imagem completo")
     playerTeste.playVideo()
