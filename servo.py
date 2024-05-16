@@ -14,8 +14,8 @@ class servo:
         self.servo_max_pulse_width = 2500  # in microseconds
         self.servo_frequency = 50  # in Hz
 
-        # Initialize self.pigself.pio
-        self.pi = self.pigself.pio.self.pi()
+# Initialize pigpio
+pi = pigpio.pi()
 
         # Set servo pulse width range
         self.pi.pi.set_servo_pulsewidth(self.pi.servo_gself.pio_self.pin, 0)
