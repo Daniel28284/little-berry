@@ -95,4 +95,5 @@ class servoClass:
 if __name__ == "__main__":
     print("processo servo iniciado")
     servoclasse=servoClass()
-    servoclasse.controlarServo()
+    #servoclasse.controlarServo()
+    servoclasse.teste()

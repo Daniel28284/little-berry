@@ -18,7 +18,7 @@ class neoPixels:
 		self.num_pixels = 72
 
 		# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed
-		self.ORDER = neopixel.GRB
+		self.ORDER = neopixel.RGB
 
 		#onde diz o brightness define a intensidade maxima dos leds
 		intensidadeDosLeds=1
@@ -83,6 +83,13 @@ class neoPixels:
 			i=i+1
 
 
+	def color_wipe(self, color, wait):
+		for i in range(self.num_pixels):
+			self.pixels[i] = color
+			self.pixels.show()
+			time.sleep(wait)
+
+
 	def main(self):
 		while True:
 			cores = ((112, 48, 160), ( 0,0,255)) # (roxo, azul)
@@ -121,6 +128,7 @@ if __name__ == "__main__":
 	while True:
 		leds.mover_led(100, 0, 200,0)
 		#leds.limpar(50, 0, 200,0.1)
+		#leds.color_wipe((0,0,255),0.1)
 
 		
 
