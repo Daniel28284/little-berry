@@ -50,7 +50,7 @@ class RedisClient:
 class LittleBerryConfig:
     def  __init__(self, connection):
         self.client = RedisClient(connection)
-        #self.client.set_initial("cor", (0,0,255))
+        self.client.set_initial("cor", 1)
 
 
 
@@ -254,6 +254,14 @@ class LittleBerryControl:
     @CONTROLloopLeds.setter
     def CONTROLloopLeds(self, value):
         self.client.set("CONTROLloopLeds", value)
+
+
+    @property
+    def CONTROLanimacaoLeds(self):
+        return self.client.get("CONTROLanimacaoLeds")
+    @CONTROLanimacaoLeds.setter
+    def CONTROLanimacaoLeds(self, value):
+        self.client.set("CONTROLanimacaoLeds", value)
 
 
 

@@ -2,10 +2,12 @@ import time
 import board
 import neopixel
 import BaseDados
+import random
+import numpy as np
 
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
-controldb = BaseDados.LittleBerryConfig(conn)
+controldb = BaseDados.LittleBerryControl(conn)
 
 class neoPixels:
 	def __init__(self):
@@ -18,7 +20,7 @@ class neoPixels:
 		self.num_pixels = 72
 
 		# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed
-		self.ORDER = neopixel.RGB
+		self.ORDER = neopixel.GRB
 
 		#onde diz o brightness define a intensidade maxima dos leds
 		intensidadeDosLeds=1
@@ -58,29 +60,22 @@ class neoPixels:
 			time.sleep(wait)
 
 	#efeito limpar que começa de uma lado e vai acendedo os leds com delay e as cores que podem ser passadas
-	def limpar(self, rgb ,delay):
-		'''
-		r,g,b : RGB compoennets 0-255; delay: seconds
-		'''
+	def limpar(self, rgb, delay):
 		for i in range(self.num_pixels):
 			self.pixels[i] = rgb
 			self.pixels.show()
 			time.sleep(delay)
-		
 
-	#mover 1 led a volta da fita
-	#verificar o for acho que tem o i+1 a toa 
-	def mover_led(self,red,green,blue, delay):
+
+	
+	def mover_led(self, red, green, blue, delay):
 		for i in range(self.num_pixels):
-			self.pixels[i]=(red,green,blue)
+			self.pixels[i] = (red, green, blue)
 			self.pixels.show()
 			time.sleep(delay)
-		
-			self.pixels[i-1]=(0,0,0)
-			self.pixels[i]=(0,0,0)
+			self.pixels[i - 1] = (0, 0, 0)
+			self.pixels[i] = (0, 0, 0)
 			self.pixels.show()
-			
-			i=i+1
 
 
 	def color_wipe(self, color, wait):
@@ -88,6 +83,115 @@ class neoPixels:
 			self.pixels[i] = color
 			self.pixels.show()
 			time.sleep(wait)
+
+
+
+	def theater_chase(self, color, wait, loop):
+		for j in range(10):  # Repeat 10 times
+			for q in range(3):
+				for i in range(0, self.num_pixels, 3):
+					self.pixels[i + q] = color
+				self.pixels.show()
+				time.sleep(wait)
+				for i in range(0, self.num_pixels, 3):
+					self.pixels[i + q] = (0, 0, 0)
+		if loop==False:
+			for l in range(self.num_pixels):
+				self.pixels[l] = (0,0,0)
+				self.pixels.show()
+		
+
+
+	def blink(self, color, wait):
+		for _ in range(5):
+			for i in range(self.num_pixels):
+				self.pixels[i] = color
+			self.pixels.show()
+			time.sleep(wait)
+			for i in range(self.num_pixels):
+				self.pixels[i] = (0, 0, 0)
+			self.pixels.show()
+			time.sleep(wait)
+
+	def fade(self, color, wait):
+		for j in range(0, 256, 5):
+			for i in range(self.num_pixels):
+				self.pixels[i] = (int(color[0] * (j / 255.0)),
+									int(color[1] * (j / 255.0)),
+									int(color[2] * (j / 255.0)))
+			self.pixels.show()
+			time.sleep(wait)
+		for j in range(255, -1, -5):
+			for i in range(self.num_pixels):
+				self.pixels[i] = (int(color[0] * (j / 255.0)),
+									int(color[1] * (j / 255.0)),
+									int(color[2] * (j / 255.0)))
+			self.pixels.show()
+			time.sleep(wait)
+
+
+
+	def luz(self, loop):
+		pixel3 = int(self.num_pixels/2)
+		pixelleft = pixel3 - 5
+		pixelright = pixel3 + 5
+		
+		pixelstodo = np.arange(pixelleft, pixelright)
+		for i in range(pixelleft, pixel3 + 5 + 1):
+			self.pixels[i] = (255,255,255)
+		
+		self.pixels.show()
+
+
+		if loop==False:
+			for l in range(self.num_pixels):
+				self.pixels[l] = (0,0,0)
+				self.pixels.show()
+
+
+	def sparkle(self, color, wait, loop):
+		for _ in range(1):
+			pixel = random.randint(0, self.num_pixels - 1)
+			self.pixels[pixel] = color
+			self.pixels[random.randint(0, self.num_pixels - 1)] = color
+			self.pixels[random.randint(0, self.num_pixels - 1)] = color
+			self.pixels.show()
+			time.sleep(wait)
+			self.pixels[pixel] = (0, 0, 0)
+			self.pixels.show()
+		
+		if loop==False:
+			for l in range(self.num_pixels):
+				self.pixels[l] = (0,0,0)
+				self.pixels.show()
+		
+	
+	def chaser(self, color, size, wait):
+		for i in range(self.num_pixels + size):
+			for j in range(size):
+				if i - j < self.num_pixels and i - j >= 0:
+					self.pixels[i - j] = color
+			self.pixels.show()
+			time.sleep(wait)
+			for j in range(size):
+				if i - j < self.num_pixels and i - j >= 0:
+					self.pixels[i - j] = (0, 0, 0)
+
+
+	def comet(self, color, tail_length, wait):
+		for i in range(self.num_pixels + tail_length):
+			for j in range(tail_length):
+				if i - j < self.num_pixels and i - j >= 0:
+					brightness = 1.0 - (j / float(tail_length))
+					self.pixels[i - j] = (int(color[0] * brightness), int(color[1] * brightness), int(color[2] * brightness))
+			self.pixels.show()
+			time.sleep(wait)
+			for j in range(tail_length):
+				if i - j < self.num_pixels and i - j >= 0:
+					self.pixels[i - j] = (0, 0, 0)
+
+
+
 
 
 	def main(self):
@@ -101,9 +205,27 @@ class neoPixels:
 					self.limpar(cores[configdb.cor],delay)
 				elif controldb.CONTROLanimacaoLeds == 2:
 					self.mover_led(cores[configdb.cor],delay)
-						
+				elif controldb.CONTROLanimacaoLeds==3:
+					self.color_wipe(cores[configdb.cor],0.1)
+				elif controldb.CONTROLanimacaoLeds==4:
+					self.theater_chase(cores[configdb.cor],0.1,controldb.CONTROLloopLeds)
+				elif controldb.CONTROLanimacaoLeds==5:
+					self.blink(cores[configdb.cor], 0.1)
+				elif controldb.CONTROLanimacaoLeds==5:
+					self.fade(cores[configdb.cor], 0.05)
+				elif controldb.CONTROLanimacaoLeds==6:
+					self.fade(cores[configdb.cor], 0.01)
+				elif controldb.CONTROLanimacaoLeds==7:
+					self.luz(controldb.CONTROLloopLeds)
+				elif controldb.CONTROLanimacaoLeds==8:
+					self.sparkle(cores[configdb.cor],0.01, controldb.CONTROLloopLeds)
+				elif controldb.CONTROLanimacaoLeds==9:
+					self.chaser(cores[configdb.cor],10,0.1)
+				elif controldb.CONTROLanimacaoLeds==10:
+					self.chaser(cores[configdb.cor],10,0.01)
+				elif controldb.CONTROLanimacaoLeds==11:
+					self.comet(cores[configdb.cor],10,0.1)
 				
-
 
 
 
@@ -126,10 +248,15 @@ if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
 	while True:
-		leds.mover_led(100, 0, 200,0)
+		cores = ((112, 48, 160), ( 0,0,255))
+		#leds.mover_led(100, 0, 200,0)
 		#leds.limpar(50, 0, 200,0.1)
-		#leds.color_wipe((0,0,255),0.1)
-
 		
+		
+		#sleds.comet((0, 0, 255), 15, 0.01)  # Cometa azul com rastro de 10 LEDs e 0.05s de intervalo
+		leds.chaser(cores[configdb.cor],10,0.01)
+		
+
+
 
     
