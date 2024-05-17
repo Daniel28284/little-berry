@@ -62,29 +62,29 @@ class bluetooth:
 
 
             
-            db.intensidadeDosLeds = intensidadeDosLeds
-            db.cor = cor
-            db.horasDoAlarme1 = horasDoAlarme1
-            db.nomeDoAlarme1 = nomeDoAlarme1
-            db.somDoAlarme1 = somDoAlarme1
-            db.estiloDosLeds1 = estiloDosLeds1
-            db.horasDoAlarme2 = horasDoAlarme2
-            db.nomeDoAlarme2 = nomeDoAlarme2
-            db.somDoAlarme2 = somDoAlarme2
-            db.estiloDosLeds2 = estiloDosLeds2
-            db.horasDoAlarme3 = horasDoAlarme3
-            db.nomeDoAlarme3 = nomeDoAlarme3
-            db.somDoAlarme3 = somDoAlarme3
-            db.estiloDosLeds3 = estiloDosLeds3
-            db.chamada = chamada
-            db.nomeDaChamada = nomeDaChamada
-            db.somDoToque = somDoToque
-            db.estiloDosLeds = estiloDosLeds
-            db.notificacao = notificacao
-            db.nomeDaNotificacao = nomeDaNotificacao
-            db.conteudo = conteudo
-            db.somDoToqueNotificacao = somDoToqueNotificacao
-            db.estiloDosLedsNotificacao = estiloDosLedsNotificacao
+            configdb.intensidadeDosLeds = intensidadeDosLeds
+            configdb.cor = cor
+            configdb.horasDoAlarme1 = horasDoAlarme1
+            configdb.nomeDoAlarme1 = nomeDoAlarme1
+            configdb.somDoAlarme1 = somDoAlarme1
+            configdb.estiloDosLeds1 = estiloDosLeds1
+            configdb.horasDoAlarme2 = horasDoAlarme2
+            configdb.nomeDoAlarme2 = nomeDoAlarme2
+            configdb.somDoAlarme2 = somDoAlarme2
+            configdb.estiloDosLeds2 = estiloDosLeds2
+            configdb.horasDoAlarme3 = horasDoAlarme3
+            configdb.nomeDoAlarme3 = nomeDoAlarme3
+            configdb.somDoAlarme3 = somDoAlarme3
+            configdb.estiloDosLeds3 = estiloDosLeds3
+            configdb.chamada = chamada
+            configdb.nomeDaChamada = nomeDaChamada
+            configdb.somDoToque = somDoToque
+            configdb.estiloDosLeds = estiloDosLeds
+            configdb.notificacao = notificacao
+            configdb.nomeDaNotificacao = nomeDaNotificacao
+            configdb.conteudo = conteudo
+            configdb.somDoToqueNotificacao = somDoToqueNotificacao
+            configdb.estiloDosLedsNotificacao = estiloDosLedsNotificacao
             
             
             

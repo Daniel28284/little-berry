@@ -12,7 +12,7 @@ class neoPixels:
 		
 		#Os Neopixels apenas funcionam se ligados ao pinos D10, D12, D18 or D21, porque sao os unicos que tem PWM
 		#sao os pinos gpio 
-		self.pixel_pin = board.D18
+		self.pixel_pin = board.D21
 
 		# O numero de pixel que a fita tem
 		self.num_pixels = 72
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
 	while True:
 		leds.mover_led(100, 0, 200,0)
-		leds.limpar(50, 0, 200,0.1)
+		#leds.limpar(50, 0, 200,0.1)
 
 		
 

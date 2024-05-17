@@ -50,7 +50,18 @@ class RedisClient:
 class LittleBerryConfig:
     def  __init__(self, connection):
         self.client = RedisClient(connection)
-        self.client.set_initial("cor", (0,0,255))
+        #self.client.set_initial("cor", (0,0,255))
+
+
+
+
+    @property
+    def intensidadeDosLeds(self):
+        return self.client.get("intensidadeDosLeds")
+    @intensidadeDosLeds.setter
+    def intensidadeDosLeds(self, value):
+        self.client.set("intensidadeDosLeds", value)
+
 
     @property
     def cor(self):
@@ -58,6 +69,175 @@ class LittleBerryConfig:
     @cor.setter
     def cor(self, value):
         self.client.set("cor", value)
+
+
+    @property
+    def horasDoAlarme1(self):
+        return self.client.get("horasDoAlarme1")
+    @horasDoAlarme1.setter
+    def horasDoAlarme1(self, value):
+        self.client.set("horasDoAlarme1", value)
+
+    
+    @property
+    def nomeDoAlarme1(self):
+        return self.client.get("nomeDoAlarme1")
+    @nomeDoAlarme1.setter
+    def nomeDoAlarme1(self, value):
+        self.client.set("nomeDoAlarme1", value)
+
+
+    @property
+    def somDoAlarme1(self):
+        return self.client.get("somDoAlarme1")
+    @somDoAlarme1.setter
+    def somDoAlarme1(self, value):
+        self.client.set("somDoAlarme1", value)
+
+
+    @property
+    def estiloDosLeds1(self):
+        return self.client.get("estiloDosLeds1")
+    @estiloDosLeds1.setter
+    def estiloDosLeds1(self, value):
+        self.client.set("estiloDosLeds1", value)
+
+
+    @property
+    def horasDoAlarme2(self):
+        return self.client.get("horasDoAlarme2")
+    @horasDoAlarme2.setter
+    def horasDoAlarme2(self, value):
+        self.client.set("horasDoAlarme2", value)
+
+
+    @property
+    def nomeDoAlarme2(self):
+        return self.client.get("nomeDoAlarme2")
+    @nomeDoAlarme2.setter
+    def nomeDoAlarme2(self, value):
+        self.client.set("nomeDoAlarme2", value)
+
+
+    @property
+    def somDoAlarme2(self):
+        return self.client.get("somDoAlarme2")
+    @somDoAlarme2.setter
+    def somDoAlarme2(self, value):
+        self.client.set("somDoAlarme2", value)
+
+
+    @property
+    def estiloDosLeds2(self):
+        return self.client.get("estiloDosLeds2")
+    @estiloDosLeds2.setter
+    def estiloDosLeds2(self, value):
+        self.client.set("estiloDosLeds2", value)
+
+
+    @property
+    def horasDoAlarme3(self):
+        return self.client.get("horasDoAlarme3")
+    @horasDoAlarme3.setter
+    def horasDoAlarme3(self, value):
+        self.client.set("horasDoAlarme3", value)
+
+
+    @property
+    def nomeDoAlarme3(self):
+        return self.client.get("nomeDoAlarme3")
+    @nomeDoAlarme3.setter
+    def nomeDoAlarme3(self, value):
+        self.client.set("nomeDoAlarme3", value)
+
+
+    @property
+    def somDoAlarme3(self):
+        return self.client.get("somDoAlarme3")
+    @somDoAlarme3.setter
+    def somDoAlarme3(self, value):
+        self.client.set("somDoAlarme3", value)
+
+
+    @property
+    def estiloDosLeds3(self):
+        return self.client.get("estiloDosLeds3")
+    @estiloDosLeds3.setter
+    def estiloDosLeds3(self, value):
+        self.client.set("estiloDosLeds3", value)
+
+    
+    @property
+    def chamada(self):
+        return self.client.get("chamada")
+    @chamada.setter
+    def chamada(self, value):
+        self.client.set("chamada", value)
+
+
+    @property
+    def nomeDaChamada(self):
+        return self.client.get("nomeDaChamada")
+    @nomeDaChamada.setter
+    def nomeDaChamada(self, value):
+        self.client.set("nomeDaChamada", value)
+
+
+    @property
+    def somDoToque(self):
+        return self.client.get("somDoToque")
+    @somDoToque.setter
+    def somDoToque(self, value):
+        self.client.set("somDoToque", value)
+
+
+    @property
+    def estiloDosLeds(self):
+        return self.client.get("estiloDosLeds")
+    @estiloDosLeds.setter
+    def estiloDosLeds(self, value):
+        self.client.set("estiloDosLeds", value)
+
+
+    @property
+    def notificacao(self):
+        return self.client.get("notificacao")
+    @notificacao.setter
+    def notificacao(self, value):
+        self.client.set("notificacao", value)
+
+
+    @property
+    def nomeDaNotificacao(self):
+        return self.client.get("nomeDaNotificacao")
+    @nomeDaNotificacao.setter
+    def nomeDaNotificacao(self, value):
+        self.client.set("nomeDaNotificacao", value)
+
+
+    @property
+    def conteudo(self):
+        return self.client.get("conteudo")
+    @conteudo.setter
+    def conteudo(self, value):
+        self.client.set("conteudo", value)
+
+    
+    @property
+    def somDoToqueNotificacao(self):
+        return self.client.get("somDoToqueNotificacao")
+    @somDoToqueNotificacao.setter
+    def somDoToqueNotificacao(self, value):
+        self.client.set("somDoToqueNotificacao", value)
+
+
+    @property
+    def estiloDosLedsNotificacao(self):
+        return self.client.get("estiloDosLedsNotificacao")
+    @estiloDosLedsNotificacao.setter
+    def estiloDosLedsNotificacao(self, value):
+        self.client.set("estiloDosLedsNotificacao", value)
+    
 
 
 

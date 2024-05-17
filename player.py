@@ -3,6 +3,16 @@ import time
 import signal
 import sys
 
+import BaseDados
+
+
+
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryConfig(conn)
+
+
+
 class PlayerClass:
     #video_path = '/home/daniel/Downloads/2.mp4'
     caraFeliz=0#'caminho para o video'
@@ -122,6 +132,10 @@ class PlayerClass:
         time.sleep(3)
         
 
+
+    
+        
+
         
 
         
@@ -141,9 +155,11 @@ class PlayerClass:
 
 
 if __name__ == "__main__":
+
     print("eu sopu um teste de imagem ")
     playerTeste=PlayerClass()
-    #playerTeste.teste()
+    playerTeste.teste()
     print("teste de imagem completo")
-    playerTeste.playVideo()
+    #playerTeste.playVideo()
+    
    
