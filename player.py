@@ -9,7 +9,7 @@ import BaseDados
 
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
-controldb = BaseDados.LittleBerryConfig(conn)
+controldb = BaseDados.LittleBerryControl(conn)
 
 
 
@@ -54,7 +54,7 @@ class PlayerClass:
         try:
             while True:
 
-                nDoVideo=db.CONTROLplayvideo
+                nDoVideo=controldb.CONTROLplayvideo
                 if videoAtual!=nDoVideo:
 
                     if nDoVideo==0:
@@ -81,7 +81,7 @@ class PlayerClass:
         except:
             try:
                 print("erro a representar o video")
-                db.ERRORplayVideo=True
+                controldb.ERRORplayVideo=True
                 value = self.player.is_playing()
                 if value == 0:
                     url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
@@ -90,7 +90,7 @@ class PlayerClass:
                     self.player.play()
                     time.sleep(1) #delay para dar tempo de iniciar o video
             except:
-                db.FATALERRORplayVideo=True
+                controldb.FATALERRORplayVideo=True
 
 
             

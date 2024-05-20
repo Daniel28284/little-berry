@@ -2,10 +2,12 @@ import cv2
 import numpy as np
 from picamera2 import Picamera2
 import time
-
-
 import pigpio
+import BaseDados
 
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryControl(conn)
 
 # TODO: Adicionar o movimento do motor da base.
 
@@ -33,8 +35,8 @@ class faceTracking:
         pi = pigpio.pi()
         posicaoAtual=500
         try:
-            while True:
-                time.sleep(0) # possivel controlar as frames por segundo pelo delay 
+            while controldb.CONTROLloopCamera :
+                time.sleep(0) # possível controlar as frames por segundo pelo delay 
                 # Captura uma imagem diretamente em um array NumPy
                 buffer = self.picamera2.capture_array()
                 image = np.array(buffer, dtype=np.uint8)
@@ -53,7 +55,7 @@ class faceTracking:
                     if x<110 : 
                         if posicaoAtual>500:
                             posicaoAtual=posicaoAtual-100
-                            pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
+                            controldb.COntr
                             print("direita", posicaoAtual)
                     
                     if x>130 : 

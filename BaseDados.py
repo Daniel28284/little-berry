@@ -247,7 +247,7 @@ class LittleBerryControl:
         self.client = RedisClient(connection)
         self.client.set_initial("CONTROLloopLeds", 1)
 
-
+    #leds
     @property
     def CONTROLloopLeds(self):
         return self.client.get("CONTROLloopLeds")
@@ -255,13 +255,68 @@ class LittleBerryControl:
     def CONTROLloopLeds(self, value):
         self.client.set("CONTROLloopLeds", value)
 
-
     @property
     def CONTROLanimacaoLeds(self):
         return self.client.get("CONTROLanimacaoLeds")
     @CONTROLanimacaoLeds.setter
     def CONTROLanimacaoLeds(self, value):
         self.client.set("CONTROLanimacaoLeds", value)
+
+
+
+    #Camera
+    @property
+    def CONTROLloopCamera(self):
+        return self.client.get("CONTROLloopCamera")
+    @CONTROLloopCamera.setter
+    def CONTROLloopCamera(self, value):
+        self.client.set("CONTROLloopCamera", value)
+
+
+     #servo
+    @property
+    def CONTROLservoDireita(self):
+        return self.client.get("CONTROLservoDireita")
+    @CONTROLservoDireita.setter
+    def CONTROLservoDireita(self, value):
+        self.client.set("CONTROLservoDireita", value)
+
+    @property
+    def CONTROLservoEsquerda(self):
+        return self.client.get("CONTROLservoEsquerda")
+    @CONTROLservoEsquerda.setter
+    def CONTROLservoEsquerda(self, value):
+        self.client.set("CONTROLservoEsquerda", value)
+
+    @property
+    def CONTROLservoMeio(self):
+        return self.client.get("CONTROLservoMeio")
+    @CONTROLservoMeio.setter
+    def CONTROLservoMeio(self, value):
+        self.client.set("CONTROLservoMeio", value)
+
+    #Player
+    @property
+    def CONTROLplayvideo(self):
+        return self.client.get("CONTROLplayvideo")
+    @CONTROLplayvideo.setter
+    def CONTROLplayvideo(self, value):
+        self.client.set("CONTROLplayvideo", value)
+
+    @property
+    def ERRORplayVide(self):
+        return self.client.get("ERRORplayVide")
+    @ERRORplayVide.setter
+    def ERRORplayVide(self, value):
+        self.client.set("ERRORplayVide", value)
+
+
+    @property
+    def FATALERRORplayVideo(self):
+        return self.client.get("FATALERRORplayVideo")
+    @FATALERRORplayVideo.setter
+    def FATALERRORplayVideo(self, value):
+        self.client.set("FATALERRORplayVideo", value)
 
 
 

@@ -16,7 +16,7 @@ class bluetooth:
         try:
             # Cria uma variável "ser" e faz referência ao dispositivo que queremos comunicar
             self.ser = serial.Serial('/dev/rfcomm0')
-            if self.ser.isOpen(): #Verifica se ha uma conexao retornado true ou false
+            if self.ser.isOpen(): #Verifica se ha uma conexão retornado true ou false
                 return self.ser
             else:
                 print("Não foi possível abrir a porta serial.")
@@ -28,7 +28,7 @@ class bluetooth:
 
     def enviarMensagem(self,canal,mensagem):
         '''
-        o canal é a variavel ser que vem de return do referenciaSocket
+        o canal é a variável ser que vem de return do referenciaSocket
         '''
         try:
             mensagem_code= mensagem.encode('utf-8')
@@ -36,13 +36,13 @@ class bluetooth:
             return True
             
         except Exception as e:
-            print("Erro ao enviar mensagem: Provalmemte: socket/conexao fechada", e)
+            print("Erro ao enviar mensagem: Provavelmente: socket/conexão fechada", e)
             return False
         
 		
     def lerMensagem(self,canal):
         '''
-        o canal é a variavel ser que vem de return do referenciaSocket
+        o canal é a variável ser que vem de return do referenciaSocket
         '''
         try:
             #esta linha serve para recolher o input a varivel NAO pode ser chamada de input
@@ -94,7 +94,7 @@ class bluetooth:
             
         except Exception as e:
             print(e)
-            print("Erro a receber a mensagem pedida, Provalmemte: socket/conexao fechada", e)
+            print("Erro a receber a mensagem pedida, Provavelmente: socket/conexão fechada", e)
             return False
         
 

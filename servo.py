@@ -1,24 +1,29 @@
 import pigpio
 import time
+import BaseDados
+
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryControl(conn)
 
 
 class servoClass:
 
     def __init__(self): 
-        # Gself.piO self.pin connected to the servo
+        # definir os pinos para os pinos
         self.servoPinoDireita = 18
         self.servoPinoEsquerda = 17
         self.servoPinoMeio = 11 #olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-        # Set servo parameters
-        self.servo_min_pulse_width = 500  # in microseconds
-        self.servo_max_pulse_width = 2500  # in microseconds
-        self.servo_frequency = 50  # in Hz
+        # definir o maximo e minimo do servo 
+        self.servo_min_pulse_width = 500  # ms
+        self.servo_max_pulse_width = 2500  # ms
+        self.servo_frequency = 50  # Hz
 
-        # Initialize pigpio
+        # inicar a biblioteca
         self.pi = pigpio.pi()
 
-        # Set servo pulse width range
+        # inicia os servos com 1
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0)
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
 
@@ -28,19 +33,20 @@ class servoClass:
 
 
     def teste(self):
-        # Move servo to minimum position
-            print("Moving to minimum position")
-            self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_max_pulse_width)
-            self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_max_pulse_width)
-            self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_max_pulse_width)
-            time.sleep(3)
+            while True:   
+                # Move o servo para o maximo e o minimo
 
-            # Move servo to maximum position
-            print("Moving to maximum position")
-            self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
-            self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
-            self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_min_pulse_width)
-            time.sleep(3)
+                print("Moving to minimum position")
+                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_max_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_max_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_max_pulse_width)
+                time.sleep(3)
+
+                print("Moving to maximum position")
+                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
+                self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_min_pulse_width)
+                time.sleep(3)
 
 
 
@@ -48,9 +54,9 @@ class servoClass:
     def controlarServo(self):
         try:
             while True:
-                direitaDB=db.CONTROLservoDireita
-                esquerdaDB=db.CONTROLservoEsquerda
-                meioDB=db.CONTROLservoMeio
+                direitaDB=controldb.CONTROLservoDireita
+                esquerdaDB=controldb.CONTROLservoEsquerda
+                meioDB=controldb.CONTROLservoMeio
                 posicaoDireita=500
                 posicaoEsquerda=500
                 posicaoMeio=500
@@ -68,17 +74,7 @@ class servoClass:
                     self.pi.set_servo_pulsewidth(self.servoPinoMeio, posicaoMeio)
                 
 
-                # Move servo to minimum position
-                print("Moving to minimum position")
-                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_max_pulse_width)
-                time.sleep(1)
-
-                # Move servo to maximum position
-                print("Moving to maximum position")
-                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_max_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
-                time.sleep(1)
+             
 
         except KeyboardInterrupt:
             print("\nStopself.ping servo control")
