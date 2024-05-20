@@ -33,14 +33,14 @@ class servoClass:
             self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_max_pulse_width)
             self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_max_pulse_width)
             self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_max_pulse_width)
-            time.sleep(1)
+            time.sleep(3)
 
             # Move servo to maximum position
             print("Moving to maximum position")
             self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
             self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
             self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_min_pulse_width)
-            time.sleep(1)
+            time.sleep(3)
 
 
 

@@ -86,12 +86,14 @@ class bluetooth:
             configdb.somDoToqueNotificacao = somDoToqueNotificacao
             configdb.estiloDosLedsNotificacao = estiloDosLedsNotificacao
             
+            print( "dado recebidos:", intensidadeDosLeds, cor, horasDoAlarme1, nomeDoAlarme1, somDoAlarme1, estiloDosLeds1, horasDoAlarme2, nomeDoAlarme2, somDoAlarme2, estiloDosLeds2, horasDoAlarme3, nomeDoAlarme3, somDoAlarme3, estiloDosLeds3, chamada, nomeDaChamada, somDoToque, estiloDosLeds, notificacao, nomeDaNotificacao, conteudo, somDoToqueNotificacao, estiloDosLedsNotificacao)
             
             
             
             return cleaned_output
             
         except Exception as e:
+            print(e)
             print("Erro a receber a mensagem pedida, Provalmemte: socket/conexao fechada", e)
             return False
         
@@ -103,13 +105,14 @@ class bluetooth:
 if __name__ == "__main__":
     print("Sou um teste bluetooth")
     bluetooth0 = bluetooth()
-
     canal = bluetooth0.referenciaSocket()
-    if canal != False:
-        bluetooth0.enviarMensagem(canal, "eu sou um teste de bluetooth")
-    else:
-        print("Ligação com erro")
+    while True:
+        if canal != False:
+            bluetooth0.enviarMensagem(canal, "eu sou um teste de bluetooth")
+        else:
+            print("Ligação com erro")
 
-    print("Lendo o serial")
-    bluetooth0.lerMensagem(canal)
-    print("teste completo")
+        print("Lendo o serial")
+        bluetooth0.lerMensagem(canal)
+        
+        print("teste completo")
