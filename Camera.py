@@ -5,6 +5,10 @@ import time
 import pigpio
 import BaseDados
 
+
+
+
+
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
 controldb = BaseDados.LittleBerryControl(conn)
@@ -65,7 +69,7 @@ class faceTracking:
                             print("esquerda", posicaoAtual)
 
                 # Exibe a imagem com as faces detectadas e suas coordenadas
-                cv2.imshow("Camera", image)
+                cv2.imshow("igrhuhiugdfihbdfihkbjdfgkihjb", image)
 
                 # Aguarda a tecla 'q' para sair
                 if cv2.waitKey(1) & 0xFF == ord('q'):
