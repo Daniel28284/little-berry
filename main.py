@@ -1,6 +1,7 @@
 import subprocess
 from multiprocessing import Process
 import time
+import random
 
 
 
@@ -20,13 +21,25 @@ controldb = BaseDados.LittleBerryControl(conn)
 
 
 def iniciar():
-    configdb.cor = 1
-    configdb.intensidadeDosLeds = 1
+    #configdb.cor = 0
+    #configdb.intensidadeDosLeds = 0.1
     controldb.CONTROLanimacaoLeds=5
     controldb.CONTROLloopLeds=True
-    time.sleep(2)
+    time.sleep(1000000000000000)
     controldb.CONTROLloopLeds=False
 
+
+def inatividade():
+    print("ola")
+        
+        
+
+
+
+
+def erro():
+    controldb.CONTROLanimacaoLeds=404
+    controldb.CONTROLloopLeds=True
 
 
 
@@ -72,7 +85,7 @@ if __name__ == '__main__':
         p.start()
 
 
-    iniciar()
+    inatividade()
 
 
 

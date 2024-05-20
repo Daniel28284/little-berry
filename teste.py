@@ -7,4 +7,5 @@ controldb = BaseDados.LittleBerryControl(conn)
 
 
 
-controldb
+print(configdb.cor)
+print(configdb.intensidadeDosLeds)

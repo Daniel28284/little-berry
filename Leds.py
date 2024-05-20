@@ -23,9 +23,9 @@ class neoPixels:
 		self.ORDER = neopixel.GRB
 
 		#onde diz o brightness define a intensidade maxima dos leds
-		intensidadeDosLeds=1
+		
 		self.pixels = neopixel.NeoPixel(
-			self.pixel_pin, self.num_pixels, brightness= intensidadeDosLeds, auto_write=False, pixel_order=self.ORDER
+			self.pixel_pin, self.num_pixels, brightness= configdb.intensidadeDosLeds, auto_write=False, pixel_order=self.ORDER
 		)
 
 	#faz parte do efeito de andar a roda multicor
@@ -196,11 +196,12 @@ class neoPixels:
 
 	def main(self):
 		while True:
-			cores = ((112, 48, 160), ( 0,0,255)) # (roxo, azul)
+			cores = ((100, 0, 200), ( 0,0,255),(255,0,0)) # (roxo, azul)
 			delay=0.1
+			vez1=True
 
-			while controldb.CONTROLloopLeds:
-
+			while controldb.CONTROLloopLeds or vez1:
+				vez1=False
 				if controldb.CONTROLanimacaoLeds == 1:
 					self.limpar(cores[configdb.cor],delay)
 				elif controldb.CONTROLanimacaoLeds == 2:
@@ -213,6 +214,7 @@ class neoPixels:
 					self.blink(cores[configdb.cor], 0.1)
 				elif controldb.CONTROLanimacaoLeds==5:
 					self.fade(cores[configdb.cor], 0.05)
+					print("eu again")
 				elif controldb.CONTROLanimacaoLeds==6:
 					self.fade(cores[configdb.cor], 0.01)
 				elif controldb.CONTROLanimacaoLeds==7:
@@ -225,7 +227,8 @@ class neoPixels:
 					self.chaser(cores[configdb.cor],10,0.01)
 				elif controldb.CONTROLanimacaoLeds==11:
 					self.comet(cores[configdb.cor],10,0.1)
-				
+				elif controldb.CONTROLanimacaoLeds==404:
+					self.fade(cores[3],10,0.1)
 
 
 
@@ -247,15 +250,10 @@ class neoPixels:
 if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
-	while True:
-		cores = ((112, 48, 160), ( 0,0,255))
-		#leds.mover_led(100, 0, 200,0)
-		#leds.limpar(50, 0, 200,0.1)
-		
-		
-		#sleds.comet((0, 0, 255), 15, 0.01)  # Cometa azul com rastro de 10 LEDs e 0.05s de intervalo
-		leds.chaser(cores[configdb.cor],10,0.01)
-		
+
+
+	leds.main()
+
 
 
 
