@@ -39,7 +39,7 @@ class faceTracking:
         pi = pigpio.pi()
         posicaoAtual=500
         try:
-            while controldb.CONTROLloopCamera :
+            while True :
                 time.sleep(0) # possível controlar as frames por segundo pelo delay 
                 # Captura uma imagem diretamente em um array NumPy
                 buffer = self.picamera2.capture_array()
@@ -69,7 +69,7 @@ class faceTracking:
                             print("esquerda", posicaoAtual)
 
                 # Exibe a imagem com as faces detectadas e suas coordenadas
-                cv2.imshow("igrhuhiugdfihbdfihkbjdfgkihjb", image)
+                cv2.imshow("Camera", image)
 
                 # Aguarda a tecla 'q' para sair
                 if cv2.waitKey(1) & 0xFF == ord('q'):

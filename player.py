@@ -158,7 +158,7 @@ if __name__ == "__main__":
 
     print("eu sopu um teste de imagem ")
     playerTeste=PlayerClass()
-    playerTeste.teste()
+    #playerTeste.teste()
     print("teste de imagem completo")
     #playerTeste.playVideo()
     

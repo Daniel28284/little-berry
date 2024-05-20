@@ -1,6 +1,40 @@
 import subprocess
 from multiprocessing import Process
+import time
+
+
+
+
 import BaseDados
+
+import BaseDados
+conn = BaseDados.get_connection()
+configdb = BaseDados.LittleBerryConfig(conn) 
+controldb = BaseDados.LittleBerryControl(conn)
+
+
+
+
+
+
+
+
+def iniciar():
+    configdb.cor = 1
+    configdb.intensidadeDosLeds = 1
+    controldb.CONTROLanimacaoLeds=5
+    controldb.CONTROLloopLeds=True
+    time.sleep(2)
+    controldb.CONTROLloopLeds=False
+
+
+
+
+
+
+
+
+
 
 # Função para executar um script com sudo -E env PATH=$PATH python3
 def run_script(script_name, python_path='/usr/bin/python3'):
@@ -24,10 +58,6 @@ SCRIPTS = [
 ]
 
 if __name__ == '__main__':
-    conn = BaseDados.get_connection()
-    configdb = BaseDados.LittleBerryConfig(conn)
-    controldb = BaseDados.LittleBerryConfig(conn)
-
     process_list = []
 
     # Caminho completo para o interpretador python3
@@ -40,5 +70,14 @@ if __name__ == '__main__':
     # Iniciar todos os processos
     for p in process_list:
         p.start()
+
+
+    iniciar()
+
+
+
+
+
+    
 
 
