@@ -52,6 +52,7 @@ class servoClass:
 
 
     def controlarServo(self):
+        print("ola eu sou o servo")
         posicaoDireita=int(500)
         posicaoEsquerda=int(500)
         posicaoMeio=int(500)
@@ -65,7 +66,7 @@ class servoClass:
                 if posicaoDireita!=direitaDB:
                     posicaoDireita=direitaDB
                     print("direita:", posicaoDireita)
-                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, int(posicaoDireita))
+                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, int(3000-posicaoDireita))
 
                 if posicaoEsquerda!=esquerdaDB:
                     posicaoEsquerda=esquerdaDB

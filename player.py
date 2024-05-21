@@ -36,15 +36,7 @@ class PlayerClass:
 
          #video_path = '/home/daniel/Documents/little-berry/Faces/'
        
-        url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
-
-
-        media = self.instance.media_new(url)
-        self.player.set_media(media)
-
-        self.player.play()
-
-        time.sleep(5)
+        
 
 
         
@@ -52,6 +44,7 @@ class PlayerClass:
 
 
         try:
+            videoAtual=300
             while True:
 
                 nDoVideo=controldb.CONTROLplayvideo
@@ -59,33 +52,44 @@ class PlayerClass:
 
                     if nDoVideo==0:
                         url=0 #meter o url de um video de carregamento
-                    elif(nDoVideo==1):
-                        url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
-                    elif(nDoVideo==2):
-                        url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
-                    elif(nDoVideo==3):
-                        url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
-                    elif(nDoVideo==4):
-                        url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
-                    elif(nDoVideo==5):
-                        url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
-                    elif(nDoVideo==404):
+                    elif nDoVideo==1:
+                         url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
+                    elif nDoVideo==2:
+                         url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
+                    elif nDoVideo==3:
+                         url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
+                    elif nDoVideo==4:
+                         url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
+                    elif nDoVideo==5:
+                         url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
+                    elif nDoVideo==404:
                         url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                    
+                    media = self.instance.media_new(url)
+                    self.player.set_media(media)
+                    videoAtual=nDoVideo
+                    self.player.play()
+                    time.sleep(1)
+                    
                 else:
                     value = self.player.is_playing()
+
                     if value == 0:
+
+                        media = self.instance.media_new(url)
                         self.player.set_media(media)
                         videoAtual=nDoVideo
                         self.player.play()
                         time.sleep(1) #delay para dar tempo de iniciar o video
         except:
             try:
+                
                 print("erro a representar o video")
                 controldb.ERRORplayVideo=True
                 value = self.player.is_playing()
                 if value == 0:
                     url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
-                    self.player.set_media(media)
+                    self.player.set_media(url)
                     videoAtual=nDoVideo
                     self.player.play()
                     time.sleep(1) #delay para dar tempo de iniciar o video
@@ -97,41 +101,51 @@ class PlayerClass:
 
 
     def teste(self):
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/piscar.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(3)
+        try:
+            videoAtual=300
+            nDoVideo=controldb.CONTROLplayvideo
+            if videoAtual!=nDoVideo:
+                print(nDoVideo)
+
+
+            
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/piscar.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(3)
+            
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(10)
+
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(10)
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(15)
+
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos direita.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(15)
+
+
+            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/erro.mp4')
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(3)
         
-
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(10)
-
-
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(10)
-
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(15)
-
-
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos direita.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(15)
-
-
-        media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/erro.mp4')
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(3)
-        
-
+        except:
+            print("ola")
 
     
         
@@ -160,6 +174,6 @@ if __name__ == "__main__":
     playerTeste=PlayerClass()
     #playerTeste.teste()
     print("teste de imagem completo")
-    #playerTeste.playVideo()
+    playerTeste.playVideo()
     
    

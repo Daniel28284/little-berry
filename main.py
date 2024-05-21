@@ -30,31 +30,53 @@ def iniciar():
 
 
 def inatividade():
+
+    controldb.CONTROLplayvideo=1
     ITISinatividade=False
-    while ITISinatividade:
+    #while ITISinatividade:
+        
 
-        if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
-            controldb.CONTROLloopLeds=False
-            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-            time.sleep(0.1)
-            controldb.CONTROLloopLeds=True
-            print("done")
 
+    if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
+        controldb.CONTROLloopLeds=False
+        controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+        time.sleep(0.1)
+        controldb.CONTROLloopLeds=True
+        print("done")
+
+
+
+
+
+
+    
     while True:
-        for i in range(500,1000):
+        for i in range(500,2500,20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
             print(i)
-            time.sleep(1)
+            time.sleep(0.05)
         
-        
-        time.sleep(2)
-        for i in range(1000,500, -1):
+        time.sleep(1.5)
+    
+        for i in range(2500,500, -20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
             print(i)
-            time.sleep(1)
-        
+            time.sleep(0.05)
+    
+
+
+
+
+def feliz():
+    
+    print("ola")
+
+
+
+
+   
 
 
 

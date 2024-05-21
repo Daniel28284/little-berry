@@ -62,7 +62,7 @@ class bluetooth:
 
 
             
-            configdb.intensidadeDosLeds = int(intensidadeDosLeds)
+            configdb.intensidadeDosLeds = float(intensidadeDosLeds)
             configdb.cor = int(cor)
             configdb.horasDoAlarme1 = horasDoAlarme1
             configdb.nomeDoAlarme1 = nomeDoAlarme1

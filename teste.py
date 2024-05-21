@@ -8,6 +8,20 @@ controldb = BaseDados.LittleBerryControl(conn)
 
 
 print(configdb.cor)
-print(configdb.intensidadeDosLeds)
+#print(configdb.intensidadeDosLeds)
 print(configdb.animacaoInativo)
-print(controldb.CONTROLanimacaoLeds)
+#print(controldb.CONTROLanimacaoLeds)
+
+
+configdb.animacaoInativo=8
+configdb.cor=0
+
+
+
+print(controldb.CONTROLplayvideo)
+controldb.CONTROLplayvideo=int(1)
+
+
+
+
+
