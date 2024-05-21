@@ -30,7 +30,8 @@ def iniciar():
 
 
 def inatividade():
-    while True:
+    ITISinatividade=False
+    while ITISinatividade:
 
         if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
             controldb.CONTROLloopLeds=False
@@ -39,7 +40,20 @@ def inatividade():
             controldb.CONTROLloopLeds=True
             print("done")
 
+    while True:
+        for i in range(500,1000):
+            controldb.CONTROLservoDireita=int(i)
+            controldb.CONTROLservoEsquerda=int(i)
+            print(i)
+            time.sleep(1)
         
+        
+        time.sleep(2)
+        for i in range(1000,500, -1):
+            controldb.CONTROLservoDireita=int(i)
+            controldb.CONTROLservoEsquerda=int(i)
+            print(i)
+            time.sleep(1)
         
 
 

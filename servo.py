@@ -52,26 +52,27 @@ class servoClass:
 
 
     def controlarServo(self):
+        posicaoDireita=int(500)
+        posicaoEsquerda=int(500)
+        posicaoMeio=int(500)
         try:
             while True:
                 direitaDB=controldb.CONTROLservoDireita
                 esquerdaDB=controldb.CONTROLservoEsquerda
                 meioDB=controldb.CONTROLservoMeio
-                posicaoDireita=500
-                posicaoEsquerda=500
-                posicaoMeio=500
+               
 
                 if posicaoDireita!=direitaDB:
                     posicaoDireita=direitaDB
-                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, posicaoDireita)
+                    print("direita:", posicaoDireita)
+                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, int(posicaoDireita))
 
                 if posicaoEsquerda!=esquerdaDB:
                     posicaoEsquerda=esquerdaDB
-                    self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, posicaoEsquerda)
+                    print("esquerda:", posicaoEsquerda)
+                    self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, int(posicaoEsquerda))
 
-                if posicaoMeio!=meioDB:
-                    posicaoMeio=meioDB
-                    self.pi.set_servo_pulsewidth(self.servoPinoMeio, posicaoMeio)
+               
                 
 
              
@@ -91,5 +92,5 @@ class servoClass:
 if __name__ == "__main__":
     print("processo servo iniciado")
     servoclasse=servoClass()
-    #servoclasse.controlarServo()
-    servoclasse.teste()
+    servoclasse.controlarServo()
+    #servoclasse.teste()

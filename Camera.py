@@ -59,7 +59,7 @@ class faceTracking:
                     if x<110 : 
                         if posicaoAtual>500:
                             posicaoAtual=posicaoAtual-100
-                            controldb.COntr
+                            #pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
                             print("direita", posicaoAtual)
                     
                     if x>130 : 
