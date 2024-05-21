@@ -196,7 +196,7 @@ class neoPixels:
 
 	def main(self):
 		while True:
-			cores = ((100, 0, 200), ( 0,0,255),(255,0,0)) # (roxo, azul)
+			cores = ((100, 0, 200), ( 0,0,255), (255,0,0)) # (roxo, azul)
 			delay=0.1
 			vez1=True
 
@@ -228,7 +228,7 @@ class neoPixels:
 				elif controldb.CONTROLanimacaoLeds==11:
 					self.comet(cores[configdb.cor],10,0.1)
 				elif controldb.CONTROLanimacaoLeds==404:
-					self.fade(cores[3],10,0.1)
+					self.fade(cores[2],0.01)
 
 
 

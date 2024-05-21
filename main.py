@@ -30,7 +30,15 @@ def iniciar():
 
 
 def inatividade():
-    print("ola")
+    while True:
+
+        if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
+            controldb.CONTROLloopLeds=False
+            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+            time.sleep(0.1)
+            controldb.CONTROLloopLeds=True
+            print("done")
+
         
         
 

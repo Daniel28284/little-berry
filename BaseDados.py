@@ -50,7 +50,7 @@ class RedisClient:
 class LittleBerryConfig:
     def  __init__(self, connection):
         self.client = RedisClient(connection)
-        
+        self.client.set_initial("animacaoInativo", 404)
 
 
 
@@ -238,6 +238,12 @@ class LittleBerryConfig:
     def estiloDosLedsNotificacao(self, value):
         self.client.set("estiloDosLedsNotificacao", value)
     
+    @property
+    def animacaoInativo(self):
+        return self.client.get("animacaoInativo")
+    @animacaoInativo.setter
+    def animacaoInativo(self, value):
+        self.client.set("animacaoInativo", value)
 
 
 

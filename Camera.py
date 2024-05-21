@@ -36,7 +36,7 @@ class faceTracking:
         
     def teste(self):
         servo_gpio_pin = 18
-        pi = pigpio.pi()
+        #pi = pigpio.pi()
         posicaoAtual=500
         try:
             while True :
@@ -65,7 +65,7 @@ class faceTracking:
                     if x>130 : 
                         if posicaoAtual<2500:
                             posicaoAtual=posicaoAtual+100
-                            pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
+                            #pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
                             print("esquerda", posicaoAtual)
 
                 # Exibe a imagem com as faces detectadas e suas coordenadas
