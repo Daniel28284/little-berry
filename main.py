@@ -14,7 +14,7 @@ configdb = BaseDados.LittleBerryConfig(conn)
 controldb = BaseDados.LittleBerryControl(conn)
 
 
-
+ITISinatividade=False
 
 
 
@@ -30,48 +30,80 @@ def iniciar():
 
 
 def inatividade():
-
+    global ITISinatividade
     controldb.CONTROLplayvideo=1
-    ITISinatividade=False
-    #while ITISinatividade:
+    
+    ITISinatividade=True
+    while ITISinatividade:
         
 
 
-    if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
-        controldb.CONTROLloopLeds=False
-        controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-        time.sleep(0.1)
-        controldb.CONTROLloopLeds=True
-        print("done")
+        if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
+            controldb.CONTROLloopLeds=False
+            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+            time.sleep(0.1)
+            controldb.CONTROLloopLeds=True
+            print("done")
 
 
 
+def zangado():
+    global ITISinatividade
+    ITISinatividade=False
 
+    controldb.CONTROLplayvideo=404 #Animação feliz METER
 
+    controldb.CONTROLanimacaoLeds=6
 
-    
-    while True:
+    for v in range(0,2):
         for i in range(500,2500,20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
             print(i)
-            time.sleep(0.05)
+            time.sleep(0.005)
         
-        time.sleep(1.5)
+        time.sleep(0)
     
         for i in range(2500,500, -20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
             print(i)
-            time.sleep(0.05)
+            time.sleep(0.005)
+
+
+    
+    
     
 
 
 
 
 def feliz():
+    global ITISinatividade
+    ITISinatividade=False
+
+    controldb.CONTROLplayvideo=404 #Animação feliz METER
+
+    controldb.CONTROLanimacaoLeds=6
+
+    for v in range(0,2):
+        for i in range(500,2500,20):
+            controldb.CONTROLservoDireita=int(i)
+            controldb.CONTROLservoEsquerda=int(i)
+            print(i)
+            time.sleep(0.005)
+        
+        time.sleep(0)
     
-    print("ola")
+        for i in range(2500,500, -20):
+            controldb.CONTROLservoDireita=int(i)
+            controldb.CONTROLservoEsquerda=int(i)
+            print(i)
+            time.sleep(0.005)
+
+
+    inatividade()
+    
 
 
 
@@ -129,7 +161,10 @@ if __name__ == '__main__':
         p.start()
 
 
-    inatividade()
+
+    time.sleep(4) #tempo para os processos iniciarem 
+    feliz()
+    
 
 
 

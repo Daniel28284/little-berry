@@ -113,7 +113,7 @@ class neoPixels:
 			self.pixels.show()
 			time.sleep(wait)
 
-	def fade(self, color, wait):
+	def fade(self, color, wait, wait2):
 		for j in range(0, 256, 5):
 			for i in range(self.num_pixels):
 				self.pixels[i] = (int(color[0] * (j / 255.0)),
@@ -121,6 +121,7 @@ class neoPixels:
 									int(color[2] * (j / 255.0)))
 			self.pixels.show()
 			time.sleep(wait)
+		time.sleep(wait2)
 		for j in range(255, -1, -5):
 			for i in range(self.num_pixels):
 				self.pixels[i] = (int(color[0] * (j / 255.0)),
@@ -212,23 +213,23 @@ class neoPixels:
 					self.theater_chase(cores[configdb.cor],0.1,controldb.CONTROLloopLeds)
 				elif controldb.CONTROLanimacaoLeds==5:
 					self.blink(cores[configdb.cor], 0.1)
-				elif controldb.CONTROLanimacaoLeds==5:
-					self.fade(cores[configdb.cor], 0.05)
-					print("eu again")
 				elif controldb.CONTROLanimacaoLeds==6:
-					self.fade(cores[configdb.cor], 0.01)
+					self.fade(cores[configdb.cor], 0.01,2)
+					print("eu again")
 				elif controldb.CONTROLanimacaoLeds==7:
-					self.luz(controldb.CONTROLloopLeds)
+					self.fade(cores[configdb.cor], 0.01,0)
 				elif controldb.CONTROLanimacaoLeds==8:
-					self.sparkle(cores[configdb.cor],0.01, controldb.CONTROLloopLeds)
+					self.luz(controldb.CONTROLloopLeds)
 				elif controldb.CONTROLanimacaoLeds==9:
-					self.chaser(cores[configdb.cor],10,0.1)
+					self.sparkle(cores[configdb.cor],0.01, controldb.CONTROLloopLeds)
 				elif controldb.CONTROLanimacaoLeds==10:
-					self.chaser(cores[configdb.cor],10,0.01)
+					self.chaser(cores[configdb.cor],10,0.1)
 				elif controldb.CONTROLanimacaoLeds==11:
+					self.chaser(cores[configdb.cor],10,0.01)
+				elif controldb.CONTROLanimacaoLeds==12:
 					self.comet(cores[configdb.cor],10,0.1)
 				elif controldb.CONTROLanimacaoLeds==404:
-					self.fade(cores[2],0.01)
+					self.fade(cores[2],0.01,0)
 
 
 
