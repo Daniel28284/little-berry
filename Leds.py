@@ -196,40 +196,56 @@ class neoPixels:
 
 
 	def main(self):
-		while True:
-			cores = ((100, 0, 200), ( 0,0,255), (255,0,0)) # (roxo, azul)
-			delay=0.1
+		cores = ((100, 0, 200), ( 0,0,255), (255,0,0)) # (roxo, azul)
+		delay=0.1
+		
+
+		while True:	
 			vez1=True
 
-			while controldb.CONTROLloopLeds or vez1:
-				vez1=False
-				if controldb.CONTROLanimacaoLeds == 1:
-					self.limpar(cores[configdb.cor],delay)
-				elif controldb.CONTROLanimacaoLeds == 2:
-					self.mover_led(cores[configdb.cor],delay)
-				elif controldb.CONTROLanimacaoLeds==3:
-					self.color_wipe(cores[configdb.cor],0.1)
-				elif controldb.CONTROLanimacaoLeds==4:
-					self.theater_chase(cores[configdb.cor],0.1,controldb.CONTROLloopLeds)
-				elif controldb.CONTROLanimacaoLeds==5:
-					self.blink(cores[configdb.cor], 0.1)
-				elif controldb.CONTROLanimacaoLeds==6:
-					self.fade(cores[configdb.cor], 0.01,2)
-					print("eu again")
-				elif controldb.CONTROLanimacaoLeds==7:
-					self.fade(cores[configdb.cor], 0.01,0)
-				elif controldb.CONTROLanimacaoLeds==8:
-					self.luz(controldb.CONTROLloopLeds)
-				elif controldb.CONTROLanimacaoLeds==9:
-					self.sparkle(cores[configdb.cor],0.01, controldb.CONTROLloopLeds)
-				elif controldb.CONTROLanimacaoLeds==10:
-					self.chaser(cores[configdb.cor],10,0.1)
-				elif controldb.CONTROLanimacaoLeds==11:
-					self.chaser(cores[configdb.cor],10,0.01)
-				elif controldb.CONTROLanimacaoLeds==12:
-					self.comet(cores[configdb.cor],10,0.1)
-				elif controldb.CONTROLanimacaoLeds==404:
-					self.fade(cores[2],0.01,0)
+			if(atual != controldb.CONTROLanimacaoLeds):
+				while controldb.CONTROLloopLeds or vez1:
+					vez1 = False
+					if controldb.CONTROLanimacaoLeds == 1:
+						self.limpar(cores[configdb.cor], delay)
+						atual = 1
+					elif controldb.CONTROLanimacaoLeds == 2:
+						self.mover_led(cores[configdb.cor], delay)
+						atual = 2
+					elif controldb.CONTROLanimacaoLeds == 3:
+						self.color_wipe(cores[configdb.cor], 0.1)
+						atual = 3
+					elif controldb.CONTROLanimacaoLeds == 4:
+						self.theater_chase(cores[configdb.cor], 0.1, controldb.CONTROLloopLeds)
+						atual = 4
+					elif controldb.CONTROLanimacaoLeds == 5:
+						self.blink(cores[configdb.cor], 0.1)
+						atual = 5
+					elif controldb.CONTROLanimacaoLeds == 6:
+						self.fade(cores[configdb.cor], 0.01, 2)
+						atual = 6
+					elif controldb.CONTROLanimacaoLeds == 7:
+						self.fade(cores[configdb.cor], 0.01, 0)
+						atual = 7
+					elif controldb.CONTROLanimacaoLeds == 8:
+						self.luz(controldb.CONTROLloopLeds)
+						atual = 8
+					elif controldb.CONTROLanimacaoLeds == 9:
+						self.sparkle(cores[configdb.cor], 0.01, controldb.CONTROLloopLeds)
+						atual = 9
+					elif controldb.CONTROLanimacaoLeds == 10:
+						self.chaser(cores[configdb.cor], 10, 0.1)
+						atual = 10
+					elif controldb.CONTROLanimacaoLeds == 11:
+						self.chaser(cores[configdb.cor], 10, 0.01)
+						atual = 11
+					elif controldb.CONTROLanimacaoLeds == 12:
+						self.comet(cores[configdb.cor], 10, 0.1)
+						atual = 12
+					elif controldb.CONTROLanimacaoLeds == 404:
+						self.fade(cores[2], 0.01, 0)
+						atual = 404
+
 
 
 
