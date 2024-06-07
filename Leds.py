@@ -198,7 +198,7 @@ class neoPixels:
 	def main(self):
 		cores = ((100, 0, 200), ( 0,0,255), (255,0,0)) # (roxo, azul)
 		delay=0.1
-		
+		atual=0
 
 		while True:	
 			vez1=True
@@ -267,9 +267,9 @@ class neoPixels:
 if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
+	leds.fade((0,0,255), 0.01, 0)
 
-
-	leds.main()
+	#leds.main()
 
 
 
