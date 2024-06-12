@@ -3,6 +3,7 @@ from multiprocessing import Process
 import time
 import random
 import os
+import RPi.GPIO as GPIO
 
 
 
@@ -14,21 +15,85 @@ conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
 controldb = BaseDados.LittleBerryControl(conn)
 
+'''
+        if GPIO.input(BUTTON_PIN_16) == GPIO.HIGH:
+            print("pequeno")
+            time.sleep(1)  # Add a delay to avoid multiple prints in a short time
+
+        if GPIO.input(BUTTON_PIN_18) == GPIO.HIGH:
+            print("Grande")
+            time.sleep(1)  # Add a delay to avoid multiple prints in a short time
+
+'''
+
+BUTTON_small = 16
+BUTTON_big = 18
+GPIO.setmode(GPIO.BOARD)  # Use physical pin numbering
+GPIO.setup(BUTTON_small, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 16 to be an input pin with a pull-down resistor
+GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 18 to be an input pin with a pull-down resistor
+
 
 
 
 def openMenu():
+    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
     print("acabar def open menu")
     controldb.CONTROLanimacaoLeds=7
     controldb.CONTROLloopLeds=False
     controldb.CONTROLplayvideo=404 #meter o video do menu
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
+    state = "HORAS"
+    ciclo=True
+    try:
+        while ciclo:
+            if state == "HORAS":
+                controldb.CONTROLplayvideo=404 #meter o video do simbulo das horas
+                if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                     # meter o video do simbulo das horas
+                    state = "HORAS"
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    ciclo=False
+                    horas()
+
+            elif state == "LUZ":
+                controldb.CONTROLplayvideo=404 #meter o video do simbulo da luz
+                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    state = "SHUTDOWN"
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    ciclo=False
+                    luz()
+
+            elif state == "CRONOMETRO":
+                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    state = "TIMER"
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    ciclo=False
+                    cronometro()
+
+            elif state == "TIMER":
+                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    state = "SHUTDOWN"
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    ciclo=False
+                    timer()
+
+           
+        
+            time.sleep(0.1)  # Pequeno delay para debouncing
+            #inatividade?
+
+    except KeyboardInterrupt:
+        GPIO.cleanup()                        
+
+   
+    
 
 def horas():
+    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
     print("acabar def horas")
     controldb.CONTROLplayvideo=404 #meter video da horas
     controldb.CONTROLanimacaoLeds=404 #meter um efeito tipo segundos
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
+    
+
 
 
 def luz():
@@ -76,6 +141,10 @@ def inatividade():
         time.sleep(0.1)
         controldb.CONTROLloopLeds=True
         print("done")
+
+    
+
+    
 
 
 
@@ -199,8 +268,22 @@ if __name__ == '__main__':
 
 
 
+
+
+
+    
+
     time.sleep(4) #tempo para os processos iniciarem 
-    zangado()
+
+    while True:
+        if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                print("BIG")
+                openMenu()
+
+
+        
+
+        zangado()
     
 
 
