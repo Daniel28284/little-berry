@@ -36,6 +36,9 @@ GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 18 to be 
 
 
 def openMenu():
+    click_big=False
+    lastButtonState = False
+    debouncingTimer = 0
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair
     print("acabar def open menu")
     controldb.CONTROLanimacaoLeds=7
@@ -47,37 +50,62 @@ def openMenu():
         while ciclo:
             if state == "HORAS":
                 controldb.CONTROLplayvideo=404 #meter o video do simbulo das horas
-                if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                if click_big:
+                    click_big = False
                      # meter o video do simbulo das horas
-                    state = "HORAS"
+                    state = "LUZ"
+                    print("passou para luz")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     horas()
 
             elif state == "LUZ":
                 controldb.CONTROLplayvideo=404 #meter o video do simbulo da luz
-                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                if click_big:
+                    click_big = False
                     state = "SHUTDOWN"
+                    print("passou para desligar")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     luz()
 
+            elif state == "SHUTDOWN":
+                controldb.CONTROLplayvideo=404 #meter o video do simbulo da luz
+                if click_big:
+                    click_big = False
+                    state = "CRONOMETRO"
+                    print("passou para cronometro")
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    ciclo=False
+                    shutdown()
+
             elif state == "CRONOMETRO":
-                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                if click_big:
+                    click_big = False
                     state = "TIMER"
+                    print("passou para timer")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     cronometro()
 
             elif state == "TIMER":
-                if GPIO.input(BUTTON_small) == GPIO.HIGH:
-                    state = "SHUTDOWN"
+                if click_big:
+                    click_big = False
+                    state = "LUZ"
+                    print("passou para luz")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     timer()
 
-           
-        
+
+            if lastButtonState != GPIO.input(BUTTON_big):
+                lastButtonState = GPIO.input(BUTTON_big)
+                debouncingTimer = time.time()
+            
+            if time.time() - debouncingTimer > 0.3:
+                click_big = lastButtonState
+                debouncingTimer = time.time()
+
             time.sleep(0.1)  # Pequeno delay para debouncing
             #inatividade?
 
@@ -275,15 +303,11 @@ if __name__ == '__main__':
 
     time.sleep(4) #tempo para os processos iniciarem 
 
-    while True:
-        if GPIO.input(BUTTON_big) == GPIO.HIGH:
-                print("BIG")
-                openMenu()
+    
+    openMenu()
 
 
-        
 
-        zangado()
     
 
 
