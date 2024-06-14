@@ -5,7 +5,7 @@ import random
 import os
 import RPi.GPIO as GPIO
 
-
+from datetime import datetime
 
 
 import BaseDados
@@ -56,6 +56,7 @@ def openMenu():
                     state = "LUZ"
                     print("passou para luz")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    print("foi horas")
                     ciclo=False
                     horas()
 
@@ -91,8 +92,8 @@ def openMenu():
             elif state == "TIMER":
                 if click_big:
                     click_big = False
-                    state = "LUZ"
-                    print("passou para luz")
+                    state = "Horas"
+                    print("passou para Horas")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     timer()
@@ -101,12 +102,16 @@ def openMenu():
             if lastButtonState != GPIO.input(BUTTON_big):
                 lastButtonState = GPIO.input(BUTTON_big)
                 debouncingTimer = time.time()
+                i=0 #modo zangado
+                i=i+1 #modo zangado
             
             if time.time() - debouncingTimer > 0.1:
                 click_big = lastButtonState
                 debouncingTimer = time.time()
 
-            time.sleep(0.1)  # Pequeno delay para debouncing
+            
+
+            time.sleep(0)  # Pequeno delay para debouncing
             #inatividade?
 
     except KeyboardInterrupt:
@@ -116,11 +121,36 @@ def openMenu():
     
 
 def horas():
+    now = datetime.now()
+    horas=now.hour
+    minutos=now.minute
+    print("tempo:", horas,minutos)
+    
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
     print("acabar def horas")
+
     controldb.CONTROLplayvideo=404 #meter video da horas
     controldb.CONTROLanimacaoLeds=404 #meter um efeito tipo segundos
-    
+
+    ciclo=True
+    while ciclo:
+        now = datetime.now()
+        if before!=now.minute:
+            
+            before=now.minute
+            horas=now.hour
+            minutos=now.minute
+            print("tempo depois:", horas,minutos)
+            controldb.CONTROLplayvideo=404 #meter video da horas
+
+        if GPIO.input(BUTTON_small) == GPIO.HIGH:
+            ciclo=False
+            inatividade()
+        
+        time.sleep(0.1) 
+       
+
+   
 
 
 

@@ -267,7 +267,6 @@ class neoPixels:
 if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
-	
 
 	leds.main()
 
