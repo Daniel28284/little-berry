@@ -167,37 +167,112 @@ def luz():
 def shutdown():
     os.system("sudo shutdown now")
 
+ 
+
 def cronometro():
+    print("acabar def timer")
+
+    while ciclo:
+         
+        if GPIO.input(BUTTON_small) == GPIO.HIGH:
+            inicio = time.time()
+            while GPIO.input(BUTTON_small) == GPIO.HIGH:
+                pass
+            duracao = time.time() - inicio
+            if duracao < 0.2:
+                # Toque curto
+                minutos=minutos+1
+                print("Toque curto: +1 minuto")
+            else:
+                ciclo=False
+                inatividade()
+            
+
+        if GPIO.input(BUTTON_big) == GPIO.HIGH:
+            inicio = time.time()
+            while GPIO.input(BUTTON_big) == GPIO.HIGH:
+                pass
+            duracao = time.time() - inicio
+            if duracao < 0.2:
+                # Toque curto
+                minutos=minutos-1
+                print("Toque curto: +1 minuto")
+            else:
+                total_seconds = minutos * 60
+                start_time = time.time()
+                while time.time() - start_time < total_seconds:
+                    if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                        print("Temporizador interrompido!")
+                        inatividade()
+                    remaining_time = total_seconds - (time.time() - start_time)
+                    mins, secs = divmod(remaining_time, 60)
+                    timeformat = '{:02d}:{:02d}'.format(int(mins), int(secs))
+                    print(timeformat, end='\r')
+                    time.sleep(1)
+
+
+
+
+
+
+
+    #mm logica que o cronometro mas quando preciona a tecla B por 2 segundos comeca a contar
+    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
+     
+    
+def timer():
     print("acabar def cronometro")
 
 
     minutos=0
     ciclo=True
     while ciclo:
+         
         if GPIO.input(BUTTON_small) == GPIO.HIGH:
-            minutos=minutos+1
-            print(minutos)
+            inicio = time.time()
+            while GPIO.input(BUTTON_small) == GPIO.HIGH:
+                pass
+            duracao = time.time() - inicio
+            if duracao < 0.2:
+                # Toque curto
+                minutos=minutos+1
+                print("Toque curto: +1 minuto")
+            else:
+                ciclo=False
+                inatividade()
             
 
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
-            if minutos>0:
+            inicio = time.time()
+            while GPIO.input(BUTTON_big) == GPIO.HIGH:
+                pass
+            duracao = time.time() - inicio
+            if duracao < 0.2:
+                # Toque curto
                 minutos=minutos-1
-                print(minutos)
+                print("Toque curto: +1 minuto")
+            else:
+                total_seconds = minutos * 60
+                start_time = time.time()
+                while time.time() - start_time < total_seconds:
+                    if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                        print("Temporizador interrompido!")
+                        inatividade()
+                    remaining_time = total_seconds - (time.time() - start_time)
+                    mins, secs = divmod(remaining_time, 60)
+                    timeformat = '{:02d}:{:02d}'.format(int(mins), int(secs))
+                    print(timeformat, end='\r')
+                    time.sleep(1)
+                
+                #o que fazer quando o tempo acaba: IMPORTANTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
-        
+
+
         time.sleep(0.2)
 
 
     #se clicar no botao A vai descendo o numero se clicar no B vai subindo 
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
-
-def timer():
-    print("acabar def timer")
-    #mm logica que o cronometro mas quando preciona a tecla B por 2 segundos comeca a contar
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
-     
-    
-
+    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
 
 
 def iniciar():
