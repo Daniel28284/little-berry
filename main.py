@@ -92,7 +92,7 @@ def openMenu():
             elif state == "TIMER":
                 if click_big:
                     click_big = False
-                    state = "Horas"
+                    state = "HORAS"
                     print("passou para Horas")
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
@@ -121,7 +121,9 @@ def openMenu():
     
 
 def horas():
+    
     now = datetime.now()
+    before=99
     horas=now.hour
     minutos=now.minute
     print("tempo:", horas,minutos)
@@ -131,7 +133,7 @@ def horas():
 
     controldb.CONTROLplayvideo=404 #meter video da horas
     controldb.CONTROLanimacaoLeds=404 #meter um efeito tipo segundos
-
+    time.sleep(0.5)
     ciclo=True
     while ciclo:
         now = datetime.now()
@@ -158,7 +160,8 @@ def luz():
     print("acabar def luz")
     controldb.CONTROLplayvideo=404 #meter video da luz
     controldb.CONTROLanimacaoLeds==8
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
+    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
+   
 
 
 def shutdown():
@@ -166,6 +169,25 @@ def shutdown():
 
 def cronometro():
     print("acabar def cronometro")
+
+
+    minutos=0
+    ciclo=True
+    while ciclo:
+        if GPIO.input(BUTTON_small) == GPIO.HIGH:
+            minutos=minutos+1
+            print(minutos)
+            
+
+        if GPIO.input(BUTTON_big) == GPIO.HIGH:
+            if minutos>0:
+                minutos=minutos-1
+                print(minutos)
+
+        
+        time.sleep(0.2)
+
+
     #se clicar no botao A vai descendo o numero se clicar no B vai subindo 
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
 
