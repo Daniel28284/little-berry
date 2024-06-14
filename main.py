@@ -102,7 +102,7 @@ def openMenu():
                 lastButtonState = GPIO.input(BUTTON_big)
                 debouncingTimer = time.time()
             
-            if time.time() - debouncingTimer > 0.3:
+            if time.time() - debouncingTimer > 0.1:
                 click_big = lastButtonState
                 debouncingTimer = time.time()
 

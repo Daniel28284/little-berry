@@ -17,7 +17,7 @@ class neoPixels:
 		self.pixel_pin = board.D12
 
 		# O numero de pixel que a fita tem
-		self.num_pixels = 72
+		self.num_pixels = 50
 
 		# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed
 		self.ORDER = neopixel.GRB
@@ -267,9 +267,9 @@ class neoPixels:
 if __name__ == "__main__":
 	leds = neoPixels()
 	print("SOU O LITTLEB ERRY NO RASPBERRY")
-	leds.fade((0,0,255), 0.01, 0)
+	
 
-	#leds.main()
+	leds.main()
 
 
 
