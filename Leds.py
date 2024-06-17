@@ -204,6 +204,7 @@ class neoPixels:
 			vez1=True
 
 			if(atual != controldb.CONTROLanimacaoLeds):
+			
 				while controldb.CONTROLloopLeds or vez1:
 					vez1 = False
 					if controldb.CONTROLanimacaoLeds == 1:

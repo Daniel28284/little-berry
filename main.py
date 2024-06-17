@@ -41,7 +41,7 @@ def openMenu():
     debouncingTimer = 0
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair
     print("acabar def open menu")
-    controldb.CONTROLanimacaoLeds=7
+    #controldb.CONTROLanimacaoLeds=7
     controldb.CONTROLloopLeds=False
     controldb.CONTROLplayvideo=404 #meter o video do menu
     state = "HORAS"
@@ -167,7 +167,11 @@ def horas():
 def luz():
     print("acabar def luz")
     controldb.CONTROLplayvideo=404 #meter video da luz
-    controldb.CONTROLanimacaoLeds==8
+    controldb.CONTROLloopLeds=True
+    controldb.CONTROLanimacaoLeds=8
+    
+
+    
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair
    
 
@@ -229,7 +233,7 @@ def cronometro():
     
 def timer():
     print("acabar def cronometro")
-    
+    minutosContar=0
     horas=0
     minutos=0
     ciclo=True
@@ -244,8 +248,9 @@ def timer():
                 # Toque curto
                 minutos=minutos+1
                 print("Toque curto: +1 minuto")
-
+            minutosContar=minutosContar+1
             if minutos<60 and horas<24:
+                
                 if minutos==60:
                     minutos=0
                     horas=horas+1
@@ -271,6 +276,7 @@ def timer():
                 print("Toque curto: -1 minuto")
 
                 if minutos>-1 and horas>-1:
+                    minutosContar=minutosContar-1
                     if minutos==-1 and horas>0:
                         minutos=0
                         horas=horas-1
@@ -281,7 +287,7 @@ def timer():
 
 
             else:
-                total_seconds = minutos * 60
+                total_seconds = minutosContar
                 start_time = time.time()
                 while time.time() - start_time < total_seconds:
                     if GPIO.input(BUTTON_big) == GPIO.HIGH:
@@ -291,6 +297,9 @@ def timer():
                     mins, secs = divmod(remaining_time, 60)
                     timeformat = '{:02d}:{:02d}'.format(int(mins), int(secs))
                     print(timeformat, end='\r')
+                    control = f"{int(mins):02d}_{int(secs):02d}"
+                    controldb.CONTROLplayvideo=control
+
                     time.sleep(1)
                 
                 #o que fazer quando o tempo acaba: IMPORTANTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
