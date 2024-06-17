@@ -64,6 +64,10 @@ class PlayerClass:
                          url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
                     elif nDoVideo==404:
                         url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                        
+
+                    else:
+                        url = f'/home/daniel/Documents/little-berry/Faces/{nDoVideo}.png'
                     
                     media = self.instance.media_new(url)
                     self.player.set_media(media)

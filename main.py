@@ -143,7 +143,15 @@ def horas():
             horas=now.hour
             minutos=now.minute
             print("tempo depois:", horas,minutos)
-            controldb.CONTROLplayvideo=404 #meter video da horas
+
+
+            if minutos<60 and horas<24:
+
+                control = f"{horas:02d}_{minutos:02d}"
+                controldb.CONTROLplayvideo=control
+                print("control", control)
+
+            
 
         if GPIO.input(BUTTON_small) == GPIO.HIGH:
             ciclo=False
@@ -171,44 +179,43 @@ def shutdown():
 
 def cronometro():
     print("acabar def timer")
+    segundos =0 
+    minutos= 0
 
-    while ciclo:
-         
-        if GPIO.input(BUTTON_small) == GPIO.HIGH:
-            inicio = time.time()
-            while GPIO.input(BUTTON_small) == GPIO.HIGH:
-                pass
-            duracao = time.time() - inicio
-            if duracao < 0.2:
-                # Toque curto
-                minutos=minutos+1
-                print("Toque curto: +1 minuto")
-            else:
-                ciclo=False
-                inatividade()
-            
+    if GPIO.input(BUTTON_small) == GPIO.HIGH:
+        inicio = time.time()
+        while GPIO.input(BUTTON_small) == GPIO.HIGH:
+            pass
+        duracao = time.time() - inicio
+        if duracao < 0.2:
+            # Toque curto
+            while True:
+                #função pausa
+                if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                    time.sleep(2)
+                    while GPIO.input(BUTTON_big) == GPIO.LOW:
+                        pass
+                segundos=segundos+1
+                
+                #função sair
+                if GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    break
 
-        if GPIO.input(BUTTON_big) == GPIO.HIGH:
-            inicio = time.time()
-            while GPIO.input(BUTTON_big) == GPIO.HIGH:
-                pass
-            duracao = time.time() - inicio
-            if duracao < 0.2:
-                # Toque curto
-                minutos=minutos-1
-                print("Toque curto: +1 minuto")
-            else:
-                total_seconds = minutos * 60
-                start_time = time.time()
-                while time.time() - start_time < total_seconds:
-                    if GPIO.input(BUTTON_big) == GPIO.HIGH:
-                        print("Temporizador interrompido!")
-                        inatividade()
-                    remaining_time = total_seconds - (time.time() - start_time)
-                    mins, secs = divmod(remaining_time, 60)
-                    timeformat = '{:02d}:{:02d}'.format(int(mins), int(secs))
-                    print(timeformat, end='\r')
-                    time.sleep(1)
+                if segundos<61 and minutos<25:
+                    if segundos==60:
+                        segundos=0
+                        minutos=minutos+1
+
+                    control = f"{minutos:02d}_{segundos:02d}"
+                    controldb.CONTROLplayvideo=control
+                    print("control", control)
+                time.sleep(1)
+        inatividade()
+    
+                    
+
+           
+
 
 
 
@@ -222,8 +229,8 @@ def cronometro():
     
 def timer():
     print("acabar def cronometro")
-
-
+    
+    horas=0
     minutos=0
     ciclo=True
     while ciclo:
@@ -237,7 +244,18 @@ def timer():
                 # Toque curto
                 minutos=minutos+1
                 print("Toque curto: +1 minuto")
-            else:
+
+            if minutos<60 and horas<24:
+                if minutos==60:
+                    minutos=0
+                    horas=horas+1
+
+                control = f"{horas:02d}_{minutos:02d}"
+                controldb.CONTROLplayvideo=control
+                print("control", control)
+               
+
+            elif duracao > 0.8:
                 ciclo=False
                 inatividade()
             
@@ -250,7 +268,18 @@ def timer():
             if duracao < 0.2:
                 # Toque curto
                 minutos=minutos-1
-                print("Toque curto: +1 minuto")
+                print("Toque curto: -1 minuto")
+
+                if minutos>-1 and horas>-1:
+                    if minutos==-1 and horas>0:
+                        minutos=0
+                        horas=horas-1
+                        
+                    control = f"{horas:02d}_{minutos:02d}"
+                    controldb.CONTROLplayvideo=control
+                    print("control", control)
+
+
             else:
                 total_seconds = minutos * 60
                 start_time = time.time()
@@ -268,7 +297,7 @@ def timer():
 
 
 
-        time.sleep(0.2)
+        
 
 
     #se clicar no botao A vai descendo o numero se clicar no B vai subindo 
