@@ -34,7 +34,7 @@ class PlayerClass:
         404-erro
         '''
 
-         #video_path = '/home/daniel/Documents/little-berry/Faces/'
+         #video_path = '/home/daniel/Documents/Faces/'
        
         
 
@@ -53,21 +53,21 @@ class PlayerClass:
                     if nDoVideo==0:
                         url=0 #meter o url de um video de carregamento
                     elif nDoVideo==1:
-                         url='/home/daniel/Documents/little-berry/Faces/piscar.mp4'
+                         url='/home/daniel/Documents/Faces/piscar.mp4'
                     elif nDoVideo==2:
-                         url='/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4'
+                         url='/home/daniel/Documents/Faces/bluetooth off.mp4'
                     elif nDoVideo==3:
-                         url='/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4'
+                         url='/home/daniel/Documents/Faces/bluetooth on.mp4'
                     elif nDoVideo==4:
-                         url='/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4'
+                         url='/home/daniel/Documents/Faces/olhos esquerda.mp4'
                     elif nDoVideo==5:
-                         url='/home/daniel/Documents/little-berry/Faces/olhos direita.mp4'
+                         url='/home/daniel/Documents/Faces/olhos direita.mp4'
                     elif nDoVideo==404:
-                        url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                        url='/home/daniel/Documents/Faces/erro.mp4'
                         
 
                     else:
-                        url = f'/home/daniel/Documents/little-berry/Faces/{nDoVideo}.png'
+                        url = f'/home/daniel/Documents/Faces/{nDoVideo}.png'
                     
                     media = self.instance.media_new(url)
                     self.player.set_media(media)
@@ -92,7 +92,7 @@ class PlayerClass:
                 controldb.ERRORplayVideo=True
                 value = self.player.is_playing()
                 if value == 0:
-                    url='/home/daniel/Documents/little-berry/Faces/erro.mp4'
+                    url='/home/daniel/Documents/Faces/erro.mp4'
                     self.player.set_media(url)
                     videoAtual=nDoVideo
                     self.player.play()
@@ -114,36 +114,36 @@ class PlayerClass:
 
             
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/piscar.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/piscar.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(3)
             
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth off.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/bluetooth off.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(10)
 
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/bluetooth on.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/bluetooth on.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(10)
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos esquerda.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/olhos esquerda.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(15)
 
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/olhos direita.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/olhos direita.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(15)
 
 
-            media = self.instance.media_new('/home/daniel/Documents/little-berry/Faces/erro.mp4')
+            media = self.instance.media_new('/home/daniel/Documents/Faces/erro.mp4')
             self.player.set_media(media)
             self.player.play()
             time.sleep(3)

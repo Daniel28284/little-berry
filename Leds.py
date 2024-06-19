@@ -204,7 +204,7 @@ class neoPixels:
 			vez1=True
 
 			if(atual != controldb.CONTROLanimacaoLeds):
-			
+				print("mudou os leds")
 				while controldb.CONTROLloopLeds or vez1:
 					vez1 = False
 					if controldb.CONTROLanimacaoLeds == 1:
@@ -220,7 +220,7 @@ class neoPixels:
 						self.theater_chase(cores[configdb.cor], 0.1, controldb.CONTROLloopLeds)
 						atual = 4
 					elif controldb.CONTROLanimacaoLeds == 5:
-						self.blink(cores[configdb.cor], 0.1)
+						self.blink(cores[configdb.cor], 0.3)
 						atual = 5
 					elif controldb.CONTROLanimacaoLeds == 6:
 						self.fade(cores[configdb.cor], 0.01, 2)

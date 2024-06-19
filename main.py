@@ -36,6 +36,7 @@ GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 18 to be 
 
 
 def openMenu():
+    i=0 #modo zangado
     click_big=False
     lastButtonState = False
     debouncingTimer = 0
@@ -55,6 +56,9 @@ def openMenu():
                      # meter o video do simbulo das horas
                     state = "LUZ"
                     print("passou para luz")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
+
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     print("foi horas")
                     ciclo=False
@@ -66,6 +70,8 @@ def openMenu():
                     click_big = False
                     state = "SHUTDOWN"
                     print("passou para desligar")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     luz()
@@ -76,6 +82,8 @@ def openMenu():
                     click_big = False
                     state = "CRONOMETRO"
                     print("passou para cronometro")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     shutdown()
@@ -85,6 +93,8 @@ def openMenu():
                     click_big = False
                     state = "TIMER"
                     print("passou para timer")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     cronometro()
@@ -94,16 +104,15 @@ def openMenu():
                     click_big = False
                     state = "HORAS"
                     print("passou para Horas")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     timer()
 
-
-            if lastButtonState != GPIO.input(BUTTON_big):
-                lastButtonState = GPIO.input(BUTTON_big)
-                debouncingTimer = time.time()
-                i=0 #modo zangado
-                i=i+1 #modo zangado
+            #modo zangado
+            if i==20:
+                print("acabar zangado no menu")
             
             if time.time() - debouncingTimer > 0.1:
                 click_big = lastButtonState
@@ -131,8 +140,8 @@ def horas():
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
     print("acabar def horas")
 
-    controldb.CONTROLplayvideo=404 #meter video da horas
-    controldb.CONTROLanimacaoLeds=404 #meter um efeito tipo segundos
+    
+    
     time.sleep(0.5)
     ciclo=True
     while ciclo:
@@ -287,12 +296,15 @@ def timer():
 
 
             else:
+                time.sleep(0.3)
                 total_seconds = minutosContar
                 start_time = time.time()
                 while time.time() - start_time < total_seconds:
                     if GPIO.input(BUTTON_big) == GPIO.HIGH:
+                        ciclo=False
                         print("Temporizador interrompido!")
                         inatividade()
+                        
                     remaining_time = total_seconds - (time.time() - start_time)
                     mins, secs = divmod(remaining_time, 60)
                     timeformat = '{:02d}:{:02d}'.format(int(mins), int(secs))
@@ -301,7 +313,19 @@ def timer():
                     controldb.CONTROLplayvideo=control
 
                     time.sleep(1)
-                
+
+                #acabou:
+                ciclo=False
+                controldb.CONTROLloopLeds=True
+                controldb.CONTROLanimacaoLeds=5
+                print("ola")
+                while GPIO.input(BUTTON_small) == GPIO.LOW:
+                    pass
+
+                controldb.CONTROLloopLeds=False
+                inatividade()
+
+
                 #o que fazer quando o tempo acaba: IMPORTANTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
 
@@ -323,10 +347,8 @@ def iniciar():
 
 
 def inatividade():
-    
+    ciclo=True
     controldb.CONTROLplayvideo=1
-    
-   
 
     if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
         controldb.CONTROLloopLeds=False
@@ -335,6 +357,13 @@ def inatividade():
         controldb.CONTROLloopLeds=True
         print("done")
 
+    while ciclo:
+        if GPIO.input(BUTTON_big) == GPIO.LOW:
+            ciclo=False
+            openMenu()
+        
+           
+        
     
 
     
