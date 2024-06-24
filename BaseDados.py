@@ -6,7 +6,7 @@ import json
 def get_connection():
     return redis.Redis()
 
-
+#criar a base de dados
 class RedisClient:
 
     def __init__(self, connection):
@@ -46,7 +46,7 @@ class RedisClient:
             self.set(k, data[k])
 
 
-
+#variaveis de controlo que vem do telefone
 class LittleBerryConfig:
     def  __init__(self, connection):
         self.client = RedisClient(connection)
@@ -247,7 +247,7 @@ class LittleBerryConfig:
 
 
 
-
+#variaveis de controlo que são controladas pelo main e tem impacto nos restantes processos
 class LittleBerryControl:
     def  __init__(self, connection):
         self.client = RedisClient(connection)

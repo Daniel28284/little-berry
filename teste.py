@@ -1,6 +1,11 @@
 import BaseDados
 
 import BaseDados
+
+
+
+#classe para testes na base de dados
+
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
 controldb = BaseDados.LittleBerryControl(conn)

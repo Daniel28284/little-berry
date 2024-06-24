@@ -7,92 +7,63 @@ conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
 controldb = BaseDados.LittleBerryControl(conn)
 
-
+# Classe responsável por controlar os servos no braço do robô
+# Esta classe é executada em segundo plano e recebe comandos da class main
+# Processos sensíveis: Não
+# Proteção contra erros: Sim
+# Nível de recursos utilizados: Baixo a Médio
 class servoClass:
     def __init__(self):
-        os.system("sudo pigpiod")
-        # definir os pinos para os pinos
+        os.system("sudo pigpiod") # Este comando precisa ser executado para que a biblioteca funcione como esperado.
+
+        # Define os pinos para cada um dos servos.
         self.servoPinoDireita = 18
         self.servoPinoEsquerda = 17
-        self.servoPinoMeio = 27 #olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-        # definir o maximo e minimo do servo 
-        self.servo_min_pulse_width = 500  # ms
-        self.servo_max_pulse_width = 2500  # ms
+        # Define o máximo e mínimo de largura de pulso para os servos, e a frequência dos servos.
+        self.servo_min_pulse_width = 500  # microssegundos
+        self.servo_max_pulse_width = 2500  # microssegundos
         self.servo_frequency = 50  # Hz
 
-        # inicar a biblioteca
+        # Inicia a biblioteca pigpio.
         self.pi = pigpio.pi()
 
-        # inicia os servos com 1
+        # Inicializa os servos com 0 (sem força) e depois posiciona a 0 graus.
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0)
-        self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
-
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
+        self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
+        
 
-
-
-    def teste(self):
-            while True:   
-                # Move o servo para o maximo e o minimo
-
-                print("Moving to minimum position")
-                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_max_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_max_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_max_pulse_width)
-                time.sleep(3)
-
-                print("Moving to maximum position")
-                self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
-                self.pi.set_servo_pulsewidth(self.servoPinoMeio, self.servo_min_pulse_width)
-                time.sleep(3)
-
-
-
-
+    # Este método roda em loop e ajusta os servos quando detecta uma diferença na posição desejada.
     def controlarServo(self):
-        print("ola eu sou o servo")
-        posicaoDireita=int(500)
-        posicaoEsquerda=int(500)
-        posicaoMeio=int(500)
+        posicaoDireita = int(500)
+        posicaoEsquerda = int(500)
+
         try:
             while True:
-                direitaDB=controldb.CONTROLservoDireita
-                esquerdaDB=controldb.CONTROLservoEsquerda
-                meioDB=controldb.CONTROLservoMeio
-               
+                direitaDB = controldb.CONTROLservoDireita
+                esquerdaDB = controldb.CONTROLservoEsquerda
 
-                if posicaoDireita!=direitaDB:
-                    posicaoDireita=direitaDB
-                    print("direita:", posicaoDireita)
-                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, int(3000-posicaoDireita))
+                if posicaoDireita != direitaDB:
+                    posicaoDireita = direitaDB
+                    print("Posição direita atualizada:", posicaoDireita)
+                    self.pi.set_servo_pulsewidth(self.servoPinoDireita, int(3000 - posicaoDireita))
 
-                if posicaoEsquerda!=esquerdaDB:
-                    posicaoEsquerda=esquerdaDB
-                    print("esquerda:", posicaoEsquerda)
+                if posicaoEsquerda != esquerdaDB:
+                    posicaoEsquerda = esquerdaDB
+                    print("Posição esquerda atualizada:", posicaoEsquerda)
                     self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, int(posicaoEsquerda))
 
-               
-                
+                time.sleep(0.1)  # Pequeno delay para otimização do codigo
 
-             
-
-        except KeyboardInterrupt:
-            print("\nStopself.ping servo control")
-            self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0)
+        except Exception as e:
+            print("Erro ao controlar os servos:", str(e))
+            # Libera os servos em caso de erro.
+            self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0) 
             self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
-            self.pi.set_servo_pulsewidth(self.servoPinoMeio, 0)
-            self.pi.stop()
-
-
-
-
 
 
 if __name__ == "__main__":
-    print("processo servo iniciado")
-    servoclasse=servoClass()
+    servoclasse = servoClass()
     servoclasse.controlarServo()
-    #servoclasse.teste()

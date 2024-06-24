@@ -9,22 +9,10 @@ from datetime import datetime
 
 
 import BaseDados
-
-import BaseDados
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
 controldb = BaseDados.LittleBerryControl(conn)
 
-'''
-        if GPIO.input(BUTTON_PIN_16) == GPIO.HIGH:
-            print("pequeno")
-            time.sleep(1)  # Add a delay to avoid multiple prints in a short time
-
-        if GPIO.input(BUTTON_PIN_18) == GPIO.HIGH:
-            print("Grande")
-            time.sleep(1)  # Add a delay to avoid multiple prints in a short time
-
-'''
 
 BUTTON_small = 16
 BUTTON_big = 18
@@ -36,13 +24,11 @@ GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 18 to be 
 
 
 def openMenu():
-    i=0 #modo zangado
-    click_big=False
+    i=0 #variavel para p modo zangado
+    click_big=False 
     lastButtonState = False
     debouncingTimer = 0
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
     print("acabar def open menu")
-    #controldb.CONTROLanimacaoLeds=7
     controldb.CONTROLloopLeds=False
     controldb.CONTROLplayvideo=404 #meter o video do menu
     state = "HORAS"
