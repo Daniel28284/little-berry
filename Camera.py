@@ -36,10 +36,10 @@ class faceTracking:
         
     def teste(self):
         servo_gpio_pin = 18
-        #pi = pigpio.pi()
+        pi = pigpio.pi()
         posicaoAtual=500
         try:
-            while True :
+            while  controldb.CONTROLloopCamera:
                 time.sleep(0) # possível controlar as frames por segundo pelo delay 
                 # Captura uma imagem diretamente em um array NumPy
                 buffer = self.picamera2.capture_array()
@@ -59,13 +59,13 @@ class faceTracking:
                     if x<110 : 
                         if posicaoAtual>500:
                             posicaoAtual=posicaoAtual-100
-                            #pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
+                            pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
                             print("direita", posicaoAtual)
                     
                     if x>130 : 
                         if posicaoAtual<2500:
                             posicaoAtual=posicaoAtual+100
-                            #pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
+                            pi.set_servo_pulsewidth(servo_gpio_pin, posicaoAtual )
                             print("esquerda", posicaoAtual)
 
                 # Exibe a imagem com as faces detectadas e suas coordenadas

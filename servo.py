@@ -1,6 +1,7 @@
 import pigpio
 import time
 import BaseDados
+import os 
 
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
@@ -8,12 +9,12 @@ controldb = BaseDados.LittleBerryControl(conn)
 
 
 class servoClass:
-
-    def __init__(self): 
+    def __init__(self):
+        os.system("sudo pigpiod")
         # definir os pinos para os pinos
         self.servoPinoDireita = 18
         self.servoPinoEsquerda = 17
-        self.servoPinoMeio = 11 #olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        self.servoPinoMeio = 27 #olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
         # definir o maximo e minimo do servo 
         self.servo_min_pulse_width = 500  # ms

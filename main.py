@@ -102,13 +102,26 @@ def openMenu():
             elif state == "TIMER":
                 if click_big:
                     click_big = False
-                    state = "HORAS"
-                    print("passou para Horas")
+                    state = "CAMERA"
+                    print("passou para Camera")
                     i=i+1 #modo zangado
                     print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     timer()
+
+
+
+                elif state == "CAMERA":
+                    if click_big:
+                        click_big = False
+                        state = "HORAS"
+                        print("passou para Horas")
+                        i=i+1 #modo zangado
+                        print("modo fun:",i)
+                    elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                        ciclo=False
+                        camera()
 
             #modo zangado
             if i==20:
@@ -225,7 +238,7 @@ def cronometro():
                 time.sleep(1)
         inatividade()
     
-                    
+        
 
            
 
@@ -326,15 +339,23 @@ def timer():
                 inatividade()
 
 
-                #o que fazer quando o tempo acaba: IMPORTANTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
 
 
-        
+def camera():
+    configdb.CONTROLloopCamera=True
+
+    while GPIO.input(BUTTON_big) == GPIO.LOW:
+        pass
+
+    configdb.CONTROLloopCamera=False
 
 
-    #se clicar no botao A vai descendo o numero se clicar no B vai subindo 
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
+
+
+
+   
+
 
 
 def iniciar():
@@ -347,6 +368,7 @@ def iniciar():
 
 
 def inatividade():
+    a=0
     ciclo=True
     controldb.CONTROLplayvideo=1
 
@@ -358,9 +380,39 @@ def inatividade():
         print("done")
 
     while ciclo:
-        if GPIO.input(BUTTON_big) == GPIO.LOW:
+        if GPIO.input(BUTTON_big) == GPIO.HIGH:
             ciclo=False
             openMenu()
+
+
+        if configdb.notificacao==True:
+            controldb.CONTROLplayvideo=404 #Animação notificação METER
+            controldb.CONTROLanimacaoLeds= configdb.estiloDosLedsNotificacao
+            time.sleep(2)
+            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+            controldb.CONTROLplayvideo=1
+
+
+
+        if configdb.chamada==True:
+            controldb.CONTROLplayvideo=404 #Animação notificação METER
+            controldb.CONTROLanimacaoLeds= configdb.estiloDosLedsNotificacao
+            while GPIO.input(BUTTON_small) == GPIO.LOW:
+                pass
+            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+            controldb.CONTROLplayvideo=1
+
+
+        if(a==random.randint(5,10) or a>10):
+            feliz()
+            a=0
+
+        a=a+0.1
+        time.sleep(0.1)
+        
+        
+        #fazer alarmes se der tempo
+                
         
            
         
@@ -374,9 +426,9 @@ def zangado():
     print("acabar def zagando")
   
 
-    controldb.CONTROLplayvideo=404 #Animação feliz METER
+    controldb.CONTROLplayvideo=404 #Animação  METER
 
-    controldb.CONTROLanimacaoLeds=6
+    controldb.CONTROLanimacaoLeds=404
 
     for v in range(0,2):
         for i in range(500,2500,20):
@@ -426,7 +478,7 @@ def feliz():
 
     
 
-    inatividade()
+   
     
 
 
