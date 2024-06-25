@@ -98,28 +98,33 @@ def openMenu():
 
 
 
-                elif state == "CAMERA":
-                    if click_big:
-                        click_big = False
-                        state = "HORAS"
-                        print("passou para Horas")
-                        i=i+1 #modo zangado
-                        print("modo fun:",i)
-                    elif GPIO.input(BUTTON_small) == GPIO.HIGH:
-                        ciclo=False
-                        camera()
+            elif state == "CAMERA":
+                if click_big:
+                    click_big = False
+                    state = "HORAS"
+                    print("passou para Horas")
+                    i=i+1 #modo zangado
+                    print("modo fun:",i)
+                elif GPIO.input(BUTTON_small) == GPIO.HIGH:
+                    print("foi camera")
+                    ciclo=False
+                    camera()
 
             #modo zangado
             if i==20:
                 print("acabar zangado no menu")
             
+            if lastButtonState != GPIO.input(BUTTON_big):
+                lastButtonState = GPIO.input(BUTTON_big)
+                debouncingTimer = time.time()
+                
             if time.time() - debouncingTimer > 0.1:
                 click_big = lastButtonState
                 debouncingTimer = time.time()
 
             
 
-            time.sleep(0)  # Pequeno delay para debouncing
+            time.sleep(0.1)  
             #inatividade?
 
     except KeyboardInterrupt:
@@ -329,13 +334,15 @@ def timer():
 
 
 def camera():
-    configdb.CONTROLloopCamera=True
-
+    print("true1")
+    controldb.CONTROLloopCamera=True
+    print("true2")
     while GPIO.input(BUTTON_big) == GPIO.LOW:
         pass
 
-    configdb.CONTROLloopCamera=False
-
+    print("false1")
+    controldb.CONTROLloopCamera=False
+    print("false2")
 
 
 

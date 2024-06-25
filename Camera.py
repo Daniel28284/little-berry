@@ -4,6 +4,8 @@ from picamera2 import Picamera2
 import time
 import pigpio
 import BaseDados
+import os
+
 
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn)  # faz referência à base de dados das configurações
@@ -42,7 +44,9 @@ class FaceTracking:
         posicaoAtual = 500
         try:
             while True:
-                while controldb.CONTROLloopCamera:  # apenas executa se a classe principal passar a variável de controle para true, isto foi feito para não deixar a câmera sempre ligada, visto que o processamento de imagem consome muitos recursos
+                print("ola")
+                while controldb.CONTROLloopCamera:
+                    print("ola2")
                     time.sleep(0.1)  # possível controlar os frames por segundo pelo delay
                     # Captura uma imagem diretamente em um array NumPy
                     buffer = self.picamera2.capture_array()
@@ -76,13 +80,14 @@ class FaceTracking:
                     # Exibe a imagem com as faces detectadas e suas coordenadas
                     cv2.imshow("Camera", image)
 
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                        break
         finally:
             cv2.destroyAllWindows()
             self.picamera2.stop()
 
 if __name__ == "__main__":
+    
     # Inicia o main da câmera
     camera = FaceTracking()  
     camera.main()

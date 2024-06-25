@@ -29,7 +29,7 @@ class neoPixels:
 			# Configura os LEDs conforme as informações acima
 			# brightness=configdb.intensidadeDosLeds vai buscar o valor do brilho na base de dados, que foi definido pelo Bluetooth
 			self.pixels = neopixel.NeoPixel(
-				self.pixel_pin, self.num_pixels, brightness=configdb.intensidadeDosLeds, auto_write=False, pixel_order=self.ORDER
+				self.pixel_pin, self.num_pixels, 0.5, auto_write=False, pixel_order=self.ORDER
 			)
 
 		except:
@@ -242,4 +242,7 @@ class neoPixels:
 
 if __name__ == "__main__":
 	leds = neoPixels()
-	leds.main()
+	#leds.main()
+	while True:
+		cores = ((100, 0, 200), (0, 0, 255), (255, 0, 0))  # (roxo, azul, vermelho)
+		leds.comet(cores[configdb.cor], 10, 0.1)

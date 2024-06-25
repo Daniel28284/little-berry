@@ -3,6 +3,8 @@ import time
 
 # Classe usada apenas para testar os botões 
 
+
+
 # Configura o GPIO
 GPIO.setwarnings(False) 
 GPIO.setmode(GPIO.BOARD)  

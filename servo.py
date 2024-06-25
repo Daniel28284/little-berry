@@ -14,7 +14,7 @@ controldb = BaseDados.LittleBerryControl(conn)
 # Nível de recursos utilizados: Baixo a Médio
 class servoClass:
     def __init__(self):
-        os.system("sudo pigpiod") # Este comando precisa ser executado para que a biblioteca funcione como esperado.
+         # Este comando precisa ser executado para que a biblioteca funcione como esperado.
 
         # Define os pinos para cada um dos servos.
         self.servoPinoDireita = 18
@@ -65,5 +65,7 @@ class servoClass:
 
 
 if __name__ == "__main__":
+    os.system("sudo pigpiod")
     servoclasse = servoClass()
     servoclasse.controlarServo()
+    time.sleep(0.2)
