@@ -18,22 +18,21 @@ controldb = BaseDados.LittleBerryControl(conn)
 # Nível de Recursos utilizados: Medio a Alto
 class neoPixels:
 	def __init__(self):
-		try:
-			# Os Neopixels apenas funcionam se ligados aos pinos D10, D12, D18 ou D21
-			self.pixel_pin = board.D12
-			
-			self.num_pixels = 50  # Número de pixels na fita
-			
-			self.ORDER = neopixel.GRB  # Define a ordem dos LEDs (RGB ou GRB), pois alguns Neopixels têm o verde e o vermelho trocados
-			
-			# Configura os LEDs conforme as informações acima
-			# brightness=configdb.intensidadeDosLeds vai buscar o valor do brilho na base de dados, que foi definido pelo Bluetooth
-			self.pixels = neopixel.NeoPixel(
-				self.pixel_pin, self.num_pixels, 0.5, auto_write=False, pixel_order=self.ORDER
-			)
+		
+		#Os Neopixels apenas funcionam se ligados ao pinos D10, D12, D18 or D21, porque sao os unicos que tem PWM
+		#sao os pinos gpio 
+		self.pixel_pin = board.D12
+		# O numero de pixel que a fita tem
+		self.num_pixels = 50
+		# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed
+		self.ORDER = neopixel.GRB
+		#onde diz o brightness define a intensidade maxima dos leds
+		
+		self.pixels = neopixel.NeoPixel(
+			self.pixel_pin, self.num_pixels, brightness= 1, auto_write=False, pixel_order=self.ORDER
+		)
 
-		except:
-			print("Leds com erro")
+		
 
 	# Parte do efeito de roda multicor
 	def wheel(self, pos):
@@ -242,7 +241,5 @@ class neoPixels:
 
 if __name__ == "__main__":
 	leds = neoPixels()
-	#leds.main()
-	while True:
-		cores = ((100, 0, 200), (0, 0, 255), (255, 0, 0))  # (roxo, azul, vermelho)
-		leds.comet(cores[configdb.cor], 10, 0.1)
+	leds.main()
+	

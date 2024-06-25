@@ -370,7 +370,7 @@ def inatividade():
         controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
         time.sleep(0.1)
         controldb.CONTROLloopLeds=True
-        print("done")
+       
 
     while ciclo:
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
@@ -450,7 +450,7 @@ def feliz():
     
    
 
-    controldb.CONTROLplayvideo=404 #Animação feliz METER
+    controldb.CONTROLplayvideo= 4  #Animação feliz METER
 
     controldb.CONTROLanimacaoLeds=6
 
@@ -458,7 +458,6 @@ def feliz():
         for i in range(500,2500,20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
-            print(i)
             time.sleep(0.005)
         
         time.sleep(0)
@@ -466,10 +465,11 @@ def feliz():
         for i in range(2500,500, -20):
             controldb.CONTROLservoDireita=int(i)
             controldb.CONTROLservoEsquerda=int(i)
-            print(i)
             time.sleep(0.005)
 
-    
+    time.sleep(2)
+    inatividade()
+
 
    
     
@@ -543,7 +543,7 @@ if __name__ == '__main__':
     time.sleep(4) #tempo para os processos iniciarem 
 
     
-    openMenu()
+    inatividade()
 
 
 

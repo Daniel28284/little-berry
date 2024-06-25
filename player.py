@@ -59,6 +59,12 @@ class PlayerClass:
                         url = f'/home/daniel/Documents/Faces/{nDoVideo}.png'
                     
                     media = self.instance.media_new(url)  # cria uma instância de mídia com o caminho especificado
+
+
+                    options = 'scene-width=640,scene-height=480'
+                    self.player.video_filter_add('scene', options)
+
+                    
                     self.player.set_media(media)  # define o player com a nova mídia
                     videoAtual = nDoVideo  # atualiza o vídeo atual 
                     self.player.play()  # inicia a reprodução do vídeo ou imagem
