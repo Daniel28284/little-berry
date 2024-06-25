@@ -29,7 +29,7 @@ class neoPixels:
 		#onde diz o brightness define a intensidade maxima dos leds
 		
 		self.pixels = neopixel.NeoPixel(
-			self.pixel_pin, self.num_pixels, brightness= 1, auto_write=False, pixel_order=self.ORDER
+			self.pixel_pin, self.num_pixels, brightness= 0.2, auto_write=False, pixel_order=self.ORDER
 		)
 
 		

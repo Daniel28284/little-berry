@@ -86,7 +86,7 @@ class bluetooth:
             configdb.nomeDoAlarme3 = nomeDoAlarme3
             configdb.somDoAlarme3 = somDoAlarme3
             configdb.estiloDosLeds3 = estiloDosLeds3
-            configdb.chamada = chamada
+            configdb.chamada = int(chamada)
             configdb.nomeDaChamada = nomeDaChamada
             configdb.somDoToque = somDoToque
             configdb.estiloDosLeds = estiloDosLeds
@@ -98,8 +98,12 @@ class bluetooth:
             configdb.animacaoInativo = int(animacaoInativo)
 
             # print para debug
-            print("dados recebidos:", intensidadeDosLeds, cor, horasDoAlarme1, nomeDoAlarme1, somDoAlarme1, estiloDosLeds1, horasDoAlarme2, nomeDoAlarme2, somDoAlarme2, estiloDosLeds2, horasDoAlarme3, nomeDoAlarme3, somDoAlarme3, estiloDosLeds3, chamada, nomeDaChamada, somDoToque, estiloDosLeds, notificacao, nomeDaNotificacao, conteudo, somDoToqueNotificacao, estiloDosLedsNotificacao)
+            print("dados recebidos:", intensidadeDosLeds, cor, horasDoAlarme1, nomeDoAlarme1, somDoAlarme1, estiloDosLeds1, horasDoAlarme2, nomeDoAlarme2, somDoAlarme2, estiloDosLeds2, horasDoAlarme3, nomeDoAlarme3, somDoAlarme3, estiloDosLeds3, "chamada: ", chamada, nomeDaChamada, somDoToque, estiloDosLeds, notificacao, nomeDaNotificacao, conteudo, somDoToqueNotificacao, estiloDosLedsNotificacao)
             
+            if configdb.chamada==1:
+                print("chamada aqui")
+
+
             return cleaned_output
             
         except Exception as e:

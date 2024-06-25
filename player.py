@@ -34,7 +34,8 @@ class PlayerClass:
 
         
         try:
-            videoAtual = 300  # controla o vídeo atual para otimização
+            videoAtual = 300 # controla o vídeo atual para otimização
+            controldb.CONTROLplayvideo=  3
             while True: 
 
                 nDoVideo = controldb.CONTROLplayvideo
@@ -52,6 +53,8 @@ class PlayerClass:
                          url = '/home/daniel/Documents/Faces/olhos esquerda.mp4'
                     elif nDoVideo == 5:
                          url = '/home/daniel/Documents/Faces/olhos direita.mp4'
+                    elif nDoVideo == 6:
+                         url = '/home/daniel/Documents/Faces/chamada.mp4' 
                     elif nDoVideo == 404:
                         url = '/home/daniel/Documents/Faces/erro.mp4'
                     else:  
@@ -61,8 +64,7 @@ class PlayerClass:
                     media = self.instance.media_new(url)  # cria uma instância de mídia com o caminho especificado
 
 
-                    options = 'scene-width=640,scene-height=480'
-                    self.player.video_filter_add('scene', options)
+                    
 
                     
                     self.player.set_media(media)  # define o player com a nova mídia
@@ -83,7 +85,7 @@ class PlayerClass:
             try:  
                 # tenta sinalizar um erro visualmente com LEDs vermelhos (se aplicável)
                 print("Erro ao reproduzir o vídeo:", e)
-                controldb.ERRORplayVideo = True  # indica na base de dados que houve um erro não fatal
+                
                 value = self.player.is_playing()
                 if value == 0:  # se não estiver reproduzindo, tenta exibir um vídeo de erro
                     url = '/home/daniel/Documents/Faces/erro.mp4'

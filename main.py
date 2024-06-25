@@ -364,21 +364,23 @@ def inatividade():
     a=0
     ciclo=True
     controldb.CONTROLplayvideo=1
-
-    if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
-        controldb.CONTROLloopLeds=False
-        controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-        time.sleep(0.1)
-        controldb.CONTROLloopLeds=True
-       
+    '''
+        if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
+            controldb.CONTROLloopLeds=False
+            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+            time.sleep(0.1)
+            controldb.CONTROLloopLeds=True
+    '''
 
     while ciclo:
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
+            print("menu")
             ciclo=False
             openMenu()
 
 
         if configdb.notificacao==True:
+            print("entrou aqui")
             controldb.CONTROLplayvideo=404 #Animação notificação METER
             controldb.CONTROLanimacaoLeds= configdb.estiloDosLedsNotificacao
             time.sleep(2)
@@ -387,20 +389,16 @@ def inatividade():
 
 
 
-        if configdb.chamada==True:
-            controldb.CONTROLplayvideo=404 #Animação notificação METER
-            controldb.CONTROLanimacaoLeds= configdb.estiloDosLedsNotificacao
+        if configdb.chamada==1:
+            print("olaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            controldb.CONTROLplayvideo=6 #Animação notificação METER
+            controldb.CONTROLanimacaoLeds= 5
             while GPIO.input(BUTTON_small) == GPIO.LOW:
                 pass
+            print("ola DEPOIS")
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-            controldb.CONTROLplayvideo=1
-
-
-        if(a==random.randint(5,10) or a>10):
-            feliz()
-            a=0
-
-        a=a+0.1
+            configdb.chamada=0
+            
         time.sleep(0.1)
         
         
@@ -467,7 +465,7 @@ def feliz():
             controldb.CONTROLservoEsquerda=int(i)
             time.sleep(0.005)
 
-    time.sleep(2)
+    time.sleep(6)
     inatividade()
 
 
@@ -540,7 +538,7 @@ if __name__ == '__main__':
 
     
 
-    time.sleep(4) #tempo para os processos iniciarem 
+    time.sleep(7) #tempo para os processos iniciarem 
 
     
     inatividade()
