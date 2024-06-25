@@ -36,7 +36,7 @@ def openMenu():
     try:
         while ciclo:
             if state == "HORAS":
-                controldb.CONTROLplayvideo=404 #meter o video do simbulo das horas
+                controldb.CONTROLplayvideo=2 #meter o video do simbulo das horas
                 if click_big:
                     click_big = False
                      # meter o video do simbulo das horas
@@ -51,7 +51,7 @@ def openMenu():
                     horas()
 
             elif state == "LUZ":
-                controldb.CONTROLplayvideo=404 #meter o video do simbulo da luz
+                controldb.CONTROLplayvideo=3 #meter o video do simbulo da luz
                 if click_big:
                     click_big = False
                     state = "SHUTDOWN"
@@ -63,7 +63,7 @@ def openMenu():
                     luz()
 
             elif state == "SHUTDOWN":
-                controldb.CONTROLplayvideo=404 #meter o video do simbulo da luz
+                controldb.CONTROLplayvideo=4 #meter o video do simbulo da luz
                 if click_big:
                     click_big = False
                     state = "CRONOMETRO"
@@ -75,6 +75,7 @@ def openMenu():
                     shutdown()
 
             elif state == "CRONOMETRO":
+                controldb.CONTROLplayvideo=5 #meter o video do simbulo da luz
                 if click_big:
                     click_big = False
                     state = "TIMER"
@@ -86,6 +87,7 @@ def openMenu():
                     cronometro()
 
             elif state == "TIMER":
+                controldb.CONTROLplayvideo=6 #meter o video do simbulo da luz
                 if click_big:
                     click_big = False
                     state = "CAMERA"
@@ -99,6 +101,7 @@ def openMenu():
 
 
             elif state == "CAMERA":
+                controldb.CONTROLplayvideo=1 #meter o video do simbulo da luz
                 if click_big:
                     click_big = False
                     state = "HORAS"
