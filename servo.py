@@ -35,10 +35,13 @@ class servoClass:
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
+        time.sleep(1)
         
 
     # Este método roda em loop e ajusta os servos quando detecta uma diferença na posição desejada.
     def controlarServo(self):
+        controldb.CONTROLservoEsquerda=500
+        controldb.CONTROLservoDireita = 500
         posicaoDireita = int(500)
         posicaoEsquerda = int(500)
 

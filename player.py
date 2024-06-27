@@ -1,7 +1,6 @@
 import vlc
 import time
-import signal
-import sys
+
 
 import BaseDados
 
@@ -43,7 +42,7 @@ class PlayerClass:
             time.sleep(10)
 
             while True: 
-                time.sleep(0.4)
+                time.sleep(0.5)
                 nDoVideo = controldb.CONTROLplayvideo
                 if videoAtual != nDoVideo:  # verifica se o número do vídeo mudou para evitar reinicializações desnecessárias
                     
@@ -91,7 +90,7 @@ class PlayerClass:
                     self.player.set_media(media)  # define o player com a nova mídia
                     videoAtual = nDoVideo  # atualiza o vídeo atual 
                     self.player.play()  # inicia a reprodução do vídeo ou imagem
-                    time.sleep(0.4)  # aguarda para evitar reinicializações rápidas
+                    time.sleep(0.5)  # aguarda para evitar reinicializações rápidas
                     
                 else:
                     value = self.player.is_playing() 
@@ -101,7 +100,7 @@ class PlayerClass:
                         self.player.set_media(media)
                         videoAtual = nDoVideo
                         self.player.play()
-                        time.sleep(0.4)  # aguarda para evitar reinicializações rápidas
+                        time.sleep(0.5)  # aguarda para evitar reinicializações rápidas
         except Exception as e:  # tratamento de erros genérico
             try:  
                 # tenta sinalizar um erro visualmente com LEDs vermelhos (se aplicável)
@@ -113,7 +112,7 @@ class PlayerClass:
                     self.player.set_media(url)
                     videoAtual = nDoVideo
                     self.player.play()
-                    time.sleep(0.4)  # aguarda para evitar reinicializações rápidas
+                    time.sleep(0.5)  # aguarda para evitar reinicializações rápidas
             except Exception as e:  
                 # se falhar ao exibir o vídeo de erro, sinaliza um problema fatal na base de dados
                 print("Erro fatal ao tentar exibir vídeo de erro:", e)

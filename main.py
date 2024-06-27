@@ -168,6 +168,14 @@ def horas():
                 control = f"{horas:02d}_{minutos:02d}"
                 controldb.CONTROLplayvideo=control
                 print("control", control)
+   
+                controldb.CONTROLservoDireita=int(500+horas*85)
+                controldb.CONTROLservoEsquerda=int(500+minutos*32)
+            
+        
+        
+
+            
 
             
 
@@ -374,6 +382,7 @@ def iniciar():
 
 
 def inatividade():
+    modosBETA=False
     a=0
     ciclo=True
     controldb.CONTROLanimacaoLeds=12
@@ -413,11 +422,14 @@ def inatividade():
             print("ola DEPOIS")
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
             configdb.chamada=0
-            
-        print(a)
-        if int(a)==random.randint(5,10):
-            a=0
-            feliz()
+
+        
+        
+        if(modosBETA==True):
+            print(a)
+            if int(a)==random.randint(5,10):
+                a=0
+                feliz()
 
         
         time.sleep(0.1)
@@ -533,6 +545,8 @@ def run_script(script_name, python_path='/usr/bin/python3'):
 SCRIPTS = [
     'Camera.py',
     'player.py',
+    'Leds.py',
+    'servo.py',
     'bluetooth.py'
 ]
 
