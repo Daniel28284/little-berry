@@ -414,8 +414,9 @@ def inatividade():
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
             configdb.chamada=0
             
-
-        if a==random.randint(5,10):
+        print(a)
+        if int(a)==random.randint(5,10):
+            a=0
             feliz()
 
         
@@ -518,7 +519,6 @@ def erro(erro):
 
 # Função para executar um script com sudo -E env PATH=$PATH python3
 def run_script(script_name, python_path='/usr/bin/python3'):
-    os.system("sudo pigpiod")
     command = ['sudo', '-E', 'env', f'PATH=$PATH', python_path, script_name]
     try:
         result = subprocess.run(command, check=True, capture_output=True, text=True)
@@ -532,8 +532,6 @@ def run_script(script_name, python_path='/usr/bin/python3'):
 # Definir os scripts que serão executados como processos
 SCRIPTS = [
     'Camera.py',
-    'Leds.py',
-    'servo.py',
     'player.py',
     'bluetooth.py'
 ]

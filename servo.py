@@ -1,7 +1,7 @@
 import pigpio
 import time
 import BaseDados
-import os 
+
 
 conn = BaseDados.get_connection()
 configdb = BaseDados.LittleBerryConfig(conn) 
@@ -13,9 +13,9 @@ controldb = BaseDados.LittleBerryControl(conn)
 # Proteção contra erros: Sim
 # Nível de recursos utilizados: Baixo a Médio
 class servoClass:
-    os.system("sudo pigpiod")
+    
     def __init__(self):
-        os.system("sudo pigpiod")
+        
          # Este comando precisa ser executado para que a biblioteca funcione como esperado.
 
         # Define os pinos para cada um dos servos.
@@ -66,8 +66,26 @@ class servoClass:
             self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
 
 
+
+        self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0) 
+        self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
+
+
+    
+    def teste(self):
+        while True:
+            posi=2500
+            self.pi.set_servo_pulsewidth(self.servoPinoDireita, posi)
+            self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, posi)
+            time.sleep(1)
+            posi=500
+            self.pi.set_servo_pulsewidth(self.servoPinoDireita, posi)
+            self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, posi)
+            time.sleep(1)
+
+
 if __name__ == "__main__":
-    os.system("sudo pigpiod")
+   
 
     servoclasse = servoClass()
     servoclasse.controlarServo()

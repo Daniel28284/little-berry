@@ -18,7 +18,7 @@ print(configdb.animacaoInativo)
 #print(controldb.CONTROLanimacaoLeds)
 
 
-configdb.animacaoInativo=8
+configdb.animacaoInativo=12
 configdb.cor=0
 
 
