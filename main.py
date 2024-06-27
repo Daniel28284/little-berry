@@ -30,6 +30,8 @@ def openMenu():
     debouncingTimer = 0
     print("acabar def open menu")
     controldb.CONTROLloopLeds=False
+    controldb.CONTROLanimacaoLeds=6
+    controldb.CONTROLloopLeds=True
     state = "HORAS"
     ciclo=True
     try:
@@ -181,10 +183,16 @@ def horas():
 
 
 def luz():
-    print("acabar def luz")
     controldb.CONTROLplayvideo=404 #meter video da luz
     controldb.CONTROLloopLeds=True
     controldb.CONTROLanimacaoLeds=8
+    
+    while GPIO.input(BUTTON_small) == GPIO.LOW:
+        pass
+
+    inatividade()   
+    
+
     
 
     
@@ -347,6 +355,8 @@ def camera():
     controldb.CONTROLloopCamera=False
     print("false2")
 
+    inatividade()
+
 
 
 
@@ -366,6 +376,7 @@ def iniciar():
 def inatividade():
     a=0
     ciclo=True
+    controldb.CONTROLanimacaoLeds=12
     controldb.CONTROLplayvideo=1
     '''
         if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
@@ -374,8 +385,9 @@ def inatividade():
             time.sleep(0.1)
             controldb.CONTROLloopLeds=True
     '''
-
+    time.sleep(1)
     while ciclo:
+        a=a+0.1
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
             print("menu")
             ciclo=False
@@ -402,6 +414,11 @@ def inatividade():
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
             configdb.chamada=0
             
+
+        if a==random.randint(5,10):
+            feliz()
+
+        
         time.sleep(0.1)
         
         
@@ -501,6 +518,7 @@ def erro(erro):
 
 # Função para executar um script com sudo -E env PATH=$PATH python3
 def run_script(script_name, python_path='/usr/bin/python3'):
+    os.system("sudo pigpiod")
     command = ['sudo', '-E', 'env', f'PATH=$PATH', python_path, script_name]
     try:
         result = subprocess.run(command, check=True, capture_output=True, text=True)

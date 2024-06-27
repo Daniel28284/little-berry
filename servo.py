@@ -72,3 +72,5 @@ if __name__ == "__main__":
     servoclasse = servoClass()
     servoclasse.controlarServo()
     time.sleep(0.2)
+
+
