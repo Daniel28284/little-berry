@@ -130,8 +130,7 @@ def openMenu():
             
 
             
-            #inatividade?
-
+          
     except KeyboardInterrupt:
         GPIO.cleanup()                        
 
@@ -191,11 +190,10 @@ def horas():
 
 
 def luz():
-    controldb.CONTROLplayvideo=404 #meter video da luz
     controldb.CONTROLloopLeds=True
     controldb.CONTROLanimacaoLeds=8
     
-    while GPIO.input(BUTTON_small) == GPIO.LOW:
+    while GPIO.input(BUTTON_big) == GPIO.LOW:
         pass
 
     inatividade()   
@@ -228,7 +226,7 @@ def cronometro():
             while True:
                 #função pausa
                 if GPIO.input(BUTTON_big) == GPIO.HIGH:
-                    time.sleep(2)
+                    time.sleep(1)
                     while GPIO.input(BUTTON_big) == GPIO.LOW:
                         pass
                 segundos=segundos+1
@@ -245,6 +243,9 @@ def cronometro():
                     control = f"{minutos:02d}_{segundos:02d}"
                     controldb.CONTROLplayvideo=control
                     print("control", control)
+
+                controldb.CONTROLservoDireita=int(500+minutos*85)
+                controldb.CONTROLservoEsquerda=int(500+segundos*32)
                 time.sleep(1)
         inatividade()
     

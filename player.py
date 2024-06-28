@@ -101,22 +101,8 @@ class PlayerClass:
                         videoAtual = nDoVideo
                         self.player.play()
                         time.sleep(0.5)  # aguarda para evitar reinicializações rápidas
-        except Exception as e:  # tratamento de erros genérico
-            try:  
-                # tenta sinalizar um erro visualmente com LEDs vermelhos (se aplicável)
-                print("Erro ao reproduzir o vídeo:", e)
-                
-                value = self.player.is_playing()
-                if value == 0:  # se não estiver reproduzindo, tenta exibir um vídeo de erro
-                    url = '/home/daniel/Documents/Faces/erro.mp4'
-                    self.player.set_media(url)
-                    videoAtual = nDoVideo
-                    self.player.play()
-                    time.sleep(0.5)  # aguarda para evitar reinicializações rápidas
-            except Exception as e:  
-                # se falhar ao exibir o vídeo de erro, sinaliza um problema fatal na base de dados
-                print("Erro fatal ao tentar exibir vídeo de erro:", e)
-                controldb.FATALERRORplayVideo = True
+        except:
+            print("ola")
 
         
   

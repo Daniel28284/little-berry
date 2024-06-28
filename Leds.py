@@ -132,7 +132,7 @@ class neoPixels:
 		pixelright = pixel3 + 5
 		
 		pixelstodo = np.arange(pixelleft, pixelright)
-		for i in range(pixelleft, pixel3 + 5 + 1):
+		for i in range(15,25):
 			self.pixels[i] = (255, 255, 255)
 		
 		self.pixels.show()

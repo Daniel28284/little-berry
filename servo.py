@@ -30,19 +30,17 @@ class servoClass:
         # Inicia a biblioteca pigpio.
         self.pi = pigpio.pi()
 
-        # Inicializa os servos com 0 (sem força) e depois posiciona a 0 graus.
+        # Inicializa os servos com 0 (sem força)
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0)
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
-        self.pi.set_servo_pulsewidth(self.servoPinoDireita, self.servo_min_pulse_width)
-        self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, self.servo_min_pulse_width)
         time.sleep(1)
         
 
     # Este método roda em loop e ajusta os servos quando detecta uma diferença na posição desejada.
     def controlarServo(self):
         controldb.CONTROLservoEsquerda=500
-        controldb.CONTROLservoDireita = 500
-        posicaoDireita = int(500)
+        controldb.CONTROLservoDireita = 2500
+        posicaoDireita = int(2500)
         posicaoEsquerda = int(500)
 
         try:
