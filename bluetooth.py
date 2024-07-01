@@ -18,7 +18,8 @@ controldb = BaseDados.LittleBerryConfig(conn) # faz referência à base de dados
 class bluetooth:
 	
     def __init__(self):
-        self.ser = serial.Serial('/dev/rfcomm0')  # encontra o dispositivo para comunicar, neste caso o raspberry
+        print("ola")
+        #self.ser = serial.Serial('/dev/rfcomm0')  # encontra o dispositivo para comunicar, neste caso o raspberry
 
     def referenciaSocket(self):
         # método que verifica e atualiza a referência ao socket do bluetooth para comunicar com o raspberry, como é um método sensível, tem funções try e tratamento de erros
@@ -28,11 +29,14 @@ class bluetooth:
             if self.ser.isOpen(): # Verifica se há uma conexão retornando true ou false
                 return self.ser
             else:
+                self.referenciaSocket()
                 print("Não foi possível abrir a porta serial.")
-                return False
+                
+                
         except serial.SerialException as e:
+            self.referenciaSocket()
             print("Erro ao abrir a porta serial:", e)
-            return False
+            
 		
     def enviarMensagem(self, canal, mensagem):
         # método que permite enviar informações do bluetooth para o raspberry, como é um método sensível, tem funções try e tratamento de erros
@@ -45,8 +49,9 @@ class bluetooth:
             return True
             
         except Exception as e:
+            self.referenciaSocket()
             print("Erro ao enviar mensagem: Provavelmente: socket/conexão fechada", e)
-            return False
+            
         
     def lerMensagem(self, canal):
         # método que permite receber a trama de dados do bluetooth vinda do raspberry com o objetivo de filtrar e guardar na base de dados, como é um método sensível, tem funções try e tratamento de erros
@@ -107,9 +112,11 @@ class bluetooth:
             return cleaned_output
             
         except Exception as e:
+            self.referenciaSocket()
             print(e)
             print("Erro ao receber a mensagem pedida, provavelmente: socket/conexão fechada", e)
-            return False
+            
+
 
 if __name__ == "__main__":
     # método chamado quando esta classe é referida 

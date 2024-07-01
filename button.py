@@ -3,7 +3,8 @@ import time
 
 # Classe usada apenas para testar os botões 
 
-
+BUTTON_PIN_16=16
+BUTTON_PIN_18=18
 
 # Configura o GPIO
 GPIO.setwarnings(False) 
@@ -15,11 +16,11 @@ try:
     while True:  
         if GPIO.input(BUTTON_PIN_16) == GPIO.HIGH:
             print("Pequeno")
-            time.sleep(1)  # Delay para dar tempo do botão voltar ao lugar e não acionar várias vezes
+            time.sleep(0.1)  # Delay para dar tempo do botão voltar ao lugar e não acionar várias vezes
 
         if GPIO.input(BUTTON_PIN_18) == GPIO.HIGH:
             print("Grande")
-            time.sleep(1)  # Delay para dar tempo do botão voltar ao lugar e não acionar várias vezes
+            time.sleep(0.1)  # Delay para dar tempo do botão voltar ao lugar e não acionar várias vezes
 
 except KeyboardInterrupt:
     pass  

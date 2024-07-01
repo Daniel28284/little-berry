@@ -21,6 +21,7 @@ class servoClass:
         # Define os pinos para cada um dos servos.
         self.servoPinoDireita = 18
         self.servoPinoEsquerda = 17
+        self.servoPinoMeio= 27
 
         # Define o máximo e mínimo de largura de pulso para os servos, e a frequência dos servos.
         self.servo_min_pulse_width = 500  # microssegundos
@@ -34,6 +35,12 @@ class servoClass:
         self.pi.set_servo_pulsewidth(self.servoPinoDireita, 0)
         self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 0)
         time.sleep(1)
+        self.pi.set_servo_pulsewidth(self.servoPinoDireita, 500)
+        self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 2500)
+        self.pi.set_servo_pulsewidth(self.servoPinoMeio, 1500)
+        time.sleep(1)
+        self.pi.set_servo_pulsewidth(self.servoPinoDireita, 2500)
+        self.pi.set_servo_pulsewidth(self.servoPinoEsquerda, 500)
         
 
     # Este método roda em loop e ajusta os servos quando detecta uma diferença na posição desejada.

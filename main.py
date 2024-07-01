@@ -30,8 +30,8 @@ def openMenu():
     debouncingTimer = 0
     print("acabar def open menu")
     controldb.CONTROLloopLeds=False
-    controldb.CONTROLanimacaoLeds=6
-    controldb.CONTROLloopLeds=True
+    controldb.CONTROLanimacaoLeds=11
+    controldb.CONTROLloopLeds=False
     state = "HORAS"
     ciclo=True
     try:
@@ -383,10 +383,14 @@ def iniciar():
 
 
 def inatividade():
+    controldb.CONTROLservoDireita=int(500)
+    controldb.CONTROLservoEsquerda=int(500)
     modosBETA=False
     a=0
     ciclo=True
-    controldb.CONTROLanimacaoLeds=12
+    
+    controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
+    controldb.CONTROLloopLeds=True
     controldb.CONTROLplayvideo=1
     '''
         if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
@@ -397,6 +401,7 @@ def inatividade():
     '''
     time.sleep(1)
     while ciclo:
+        controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
         a=a+0.1
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
             print("menu")
@@ -423,6 +428,7 @@ def inatividade():
             print("ola DEPOIS")
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
             configdb.chamada=0
+            controldb.CONTROLplayvideo=1
 
         
         

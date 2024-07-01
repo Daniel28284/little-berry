@@ -237,7 +237,10 @@ class neoPixels:
 							atual = 404
 		except:
 			print("erro FATAL nos leds, a desligar o robot")
-			os.system("sudo shutdown now")
+			for l in range(self.num_pixels):
+				self.pixels[l] = (0, 0, 0)
+				self.pixels.show()
+			
 
 if __name__ == "__main__":
 	leds = neoPixels()

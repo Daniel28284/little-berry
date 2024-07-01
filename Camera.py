@@ -40,7 +40,7 @@ class FaceTracking:
     def main(self):
         servo_gpio_pin = 27
         pi = pigpio.pi()
-        posicaoAtual = 500
+        posicaoAtual = 1500
         try:
             while True:
                 cv2.destroyAllWindows()
