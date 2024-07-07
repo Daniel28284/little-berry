@@ -37,22 +37,7 @@ class bluetooth:
             self.referenciaSocket()
             print("Erro ao abrir a porta serial:", e)
             
-		
-    def enviarMensagem(self, canal, mensagem):
-        # método que permite enviar informações do bluetooth para o raspberry, como é um método sensível, tem funções try e tratamento de erros
-        '''
-        canal = variável ser que vem de return da referenciaSocket
-        '''
-        try:
-            mensagem_code = mensagem.encode('utf-8')
-            canal.write(mensagem_code)
-            return True
-            
-        except Exception as e:
-            self.referenciaSocket()
-            print("Erro ao enviar mensagem: Provavelmente: socket/conexão fechada", e)
-            
-        
+	    
     def lerMensagem(self, canal):
         # método que permite receber a trama de dados do bluetooth vinda do raspberry com o objetivo de filtrar e guardar na base de dados, como é um método sensível, tem funções try e tratamento de erros
         '''

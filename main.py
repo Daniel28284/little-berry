@@ -14,21 +14,19 @@ configdb = BaseDados.LittleBerryConfig(conn)
 controldb = BaseDados.LittleBerryControl(conn)
 
 
-BUTTON_small = 16
-BUTTON_big = 18
-GPIO.setmode(GPIO.BOARD)  # Use physical pin numbering
-GPIO.setup(BUTTON_small, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 16 to be an input pin with a pull-down resistor
-GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 18 to be an input pin with a pull-down resistor
+BUTTON_small = 16 #pino para o botão pequeno
+BUTTON_big = 18 #pino para o botão grande
+GPIO.setmode(GPIO.BOARD)  
+GPIO.setup(BUTTON_small, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  
+GPIO.setup(BUTTON_big, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  
 
 
 
 
-def openMenu():
-    i=0 #variavel para p modo zangado
+def openMenu(): #função que gere o menu
     click_big=False 
     lastButtonState = False
     debouncingTimer = 0
-    print("acabar def open menu")
     controldb.CONTROLloopLeds=False
     controldb.CONTROLanimacaoLeds=11
     controldb.CONTROLloopLeds=False
@@ -36,93 +34,74 @@ def openMenu():
     ciclo=True
     try:
         while ciclo:
-            if state == "HORAS":
-                controldb.CONTROLplayvideo=7 #meter o video do simbulo das horas
+            
+            if state == "HORAS": #opção horas
+                controldb.CONTROLplayvideo=7 
                 if click_big:
                     click_big = False
-                     # meter o video do simbulo das horas
                     state = "LUZ"
                     print("passou para luz")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
-
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
-                    print("foi horas")
                     ciclo=False
                     horas()
 
-            elif state == "LUZ":
-                controldb.CONTROLplayvideo=8 #meter o video do simbulo da luz
+            elif state == "LUZ": #opção luz
+                controldb.CONTROLplayvideo=8 
                 if click_big:
                     click_big = False
                     state = "SHUTDOWN"
                     print("passou para desligar")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     luz()
 
-            elif state == "SHUTDOWN":
-                controldb.CONTROLplayvideo=9 #meter o video do simbulo da luz
+            elif state == "SHUTDOWN": #opção desligar
+                controldb.CONTROLplayvideo=9 
                 if click_big:
                     click_big = False
                     state = "CRONOMETRO"
                     print("passou para cronometro")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     shutdown()
 
-            elif state == "CRONOMETRO":
-                controldb.CONTROLplayvideo=10 #meter o video do simbulo da luz
+            elif state == "CRONOMETRO": #opção cronometro
+                controldb.CONTROLplayvideo=10 
                 if click_big:
                     click_big = False
                     state = "TIMER"
                     print("passou para timer")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     cronometro()
 
-            elif state == "TIMER":
-                controldb.CONTROLplayvideo=12 #meter o video do simbulo da luz
+            elif state == "TIMER": #opção timer
+                controldb.CONTROLplayvideo=12 
                 if click_big:
                     click_big = False
                     state = "CAMERA"
                     print("passou para Camera")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     ciclo=False
                     timer()
 
-
-
-            elif state == "CAMERA":
-                controldb.CONTROLplayvideo=11 #meter o video do simbulo da luz
+            elif state == "CAMERA": #opção camera 
+                controldb.CONTROLplayvideo=11 
                 if click_big:
-                    
                     click_big = False
                     state = "HORAS"
                     print("passou para Horas")
-                    i=i+1 #modo zangado
-                    print("modo fun:",i)
+                    
                 elif GPIO.input(BUTTON_small) == GPIO.HIGH:
                     print("foi camera")
                     ciclo=False
                     camera()
 
-            #modo zangado
-            if i==20:
-                print("acabar zangado no menu")
-            
+
             if lastButtonState != GPIO.input(BUTTON_big):
                 lastButtonState = GPIO.input(BUTTON_big)
                 debouncingTimer = time.time()
-                
+
             if time.time() - debouncingTimer > 0.1:
                 click_big = lastButtonState
                 debouncingTimer = time.time()
@@ -133,11 +112,9 @@ def openMenu():
           
     except KeyboardInterrupt:
         GPIO.cleanup()                        
+ 
 
-   
-    
-
-def horas():
+def horas():#função que mostra as horas
     
     now = datetime.now()
     before=99
@@ -145,9 +122,7 @@ def horas():
     minutos=now.minute
     print("tempo:", horas,minutos)
     
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
-    print("acabar def horas")
-
+ 
     
     
     time.sleep(0.5)
@@ -185,11 +160,7 @@ def horas():
         time.sleep(0.1) 
        
 
-   
-
-
-
-def luz():
+def luz():#função que liga os leds do robot para iluminar
     controldb.CONTROLloopLeds=True
     controldb.CONTROLanimacaoLeds=8
     
@@ -199,19 +170,11 @@ def luz():
     inatividade()   
     
 
-    
-
-    
-    # tratar da logica de saida, que deve ser carregar muito tempo A para sair
-   
-
-
-def shutdown():
+def shutdown():#função que desliga o robot
     os.system("sudo shutdown now")
 
- 
 
-def cronometro():
+def cronometro():#função usada para contar tempo
     print("acabar def timer")
     segundos =0 
     minutos= 0
@@ -264,7 +227,7 @@ def cronometro():
     # tratar da logica de saida, que deve ser carregar muito tempo A para sair 
      
     
-def timer():
+def timer():#função de temporizador
     print("acabar def cronometro")
     minutosContar=0
     horas=0
@@ -342,7 +305,6 @@ def timer():
                 ciclo=False
                 controldb.CONTROLloopLeds=True
                 controldb.CONTROLanimacaoLeds=5
-                print("ola")
                 while GPIO.input(BUTTON_small) == GPIO.LOW:
                     pass
 
@@ -350,10 +312,7 @@ def timer():
                 inatividade()
 
 
-
-
-
-def camera():
+def camera():#função que abre e fecha a camera
     print("true1")
     controldb.CONTROLloopCamera=True
     print("true2")
@@ -367,51 +326,27 @@ def camera():
     inatividade()
 
 
-
-
-   
-
-
-
-def iniciar():
-    #configdb.cor = 0
-    #configdb.intensidadeDosLeds = 0.1
-    controldb.CONTROLanimacaoLeds=5
-    controldb.CONTROLloopLeds=True
-    time.sleep(1000000000000000)
-    controldb.CONTROLloopLeds=False
-
-
-def inatividade():
+def inatividade():#função que é chamada quando não há interação do robot
     controldb.CONTROLservoDireita=int(500)
     controldb.CONTROLservoEsquerda=int(500)
-    modosBETA=False
-    a=0
     ciclo=True
     
     controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
     controldb.CONTROLloopLeds=True
     controldb.CONTROLplayvideo=1
-    '''
-        if(controldb.CONTROLanimacaoLeds!=configdb.animacaoInativo):
-            controldb.CONTROLloopLeds=False
-            controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-            time.sleep(0.1)
-            controldb.CONTROLloopLeds=True
-    '''
+  
     time.sleep(1)
     while ciclo:
         controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
-        a=a+0.1
+
         if GPIO.input(BUTTON_big) == GPIO.HIGH:
             print("menu")
             ciclo=False
             openMenu()
 
 
-        if configdb.notificacao==True:
-            print("entrou aqui")
-            controldb.CONTROLplayvideo=404 #Animação notificação METER
+        if configdb.notificacao==1:
+            controldb.CONTROLplayvideo=404 
             controldb.CONTROLanimacaoLeds= configdb.estiloDosLedsNotificacao
             time.sleep(2)
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
@@ -420,44 +355,24 @@ def inatividade():
 
 
         if configdb.chamada==1:
-            print("olaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            controldb.CONTROLplayvideo=6 #Animação notificação METER
+            controldb.CONTROLplayvideo=6 
             controldb.CONTROLanimacaoLeds= 5
             while GPIO.input(BUTTON_small) == GPIO.LOW:
                 pass
-            print("ola DEPOIS")
             controldb.CONTROLanimacaoLeds=configdb.animacaoInativo
             configdb.chamada=0
             controldb.CONTROLplayvideo=1
 
-        
-        
-        if(modosBETA==True):
-            print(a)
-            if int(a)==random.randint(5,10):
-                a=0
-                feliz()
 
         
         time.sleep(0.1)
         
         
-        #fazer alarmes se der tempo
-                
-        
-           
-        
+def zangado():#função que foi descontinuada do robot devido a problemas do VLC
     
-
-    
-
-
-
-def zangado():
-    print("acabar def zagando")
   
 
-    controldb.CONTROLplayvideo=404 #Animação  METER
+    controldb.CONTROLplayvideo=404 
 
     controldb.CONTROLanimacaoLeds=404
 
@@ -477,17 +392,7 @@ def zangado():
             time.sleep(0.0005)
 
 
-    
-    
-    
-
-
-
-
-def feliz():
-    
-   
-
+def feliz():#função que foi descontinuada do robot devido a problemas do VLC
     controldb.CONTROLplayvideo= 4  #Animação feliz METER
 
     controldb.CONTROLanimacaoLeds=6
@@ -509,33 +414,6 @@ def feliz():
     inatividade()
 
 
-   
-    
-
-
-
-
-   
-
-
-
-
-def erro(erro):
-    '''
-    erro: a mensagem a mostrar no terminal
-    '''
-    print(erro)
-    controldb.CONTROLanimacaoLeds=404
-    controldb.CONTROLloopLeds=True
-
-
-
-
-
-
-
-
-
 # Função para executar um script com sudo -E env PATH=$PATH python3
 def run_script(script_name, python_path='/usr/bin/python3'):
     command = ['sudo', '-E', 'env', f'PATH=$PATH', python_path, script_name]
@@ -547,6 +425,7 @@ def run_script(script_name, python_path='/usr/bin/python3'):
         print(f"Command for {script_name} failed with return code {e.returncode}")
         print(f"Output of {script_name}:\n", e.stdout)
         print(f"Error of {script_name}:\n", e.stderr)
+
 
 # Definir os scripts que serão executados como processos
 SCRIPTS = [
