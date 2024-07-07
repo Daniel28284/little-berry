@@ -449,27 +449,8 @@ if __name__ == '__main__':
     # Iniciar todos os processos
     for p in process_list:
         p.start()
-
-
-
-
-
-
     
-
     time.sleep(7) #tempo para os processos iniciarem 
 
     
     inatividade()
-
-
-
-    
-
-
-
-
-
-    
-
-
