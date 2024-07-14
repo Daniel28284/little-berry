@@ -1,4 +1,7 @@
 # little-berry
+
+![image](https://github.com/user-attachments/assets/e98e7cef-5362-4af3-a31b-b04e3511ec11)
+
 Little Berry é um assistente pessoal multifuncional projetado para desempenhar diversas tarefas práticas, como gerenciar calendário, atuar como temporizador, exibir a hora, fornecer informações meteorológicas, notificar chamadas recebidas. Além dessas funções utilitárias, o assistente apresenta aspectos mais "emocionais", como a capacidade de dançar, cumprimentar calorosamente o usuário na chegada e despedir-se de maneira afetuosa quando este parte.
 O projeto é baseado em um Raspberry Pi 4, que utiliza uma câmara para processar dados e controlar dispositivos como o monitor, motores servo e alto-falantes. A escolha do nome "Little Berry" decorre do uso do microprocessador Raspberry Pi 4, sendo a inclusão da palavra "little" para conferir um toque amigável e agradável ao nome.
 Além do hardware, o projeto envolve a construção de um modelo 3D e o desenvolvimento de uma aplicação dedicada. Essa aplicação permitirá configurar diversas opções do robô, como ajustar o horário, definir lembretes, controlar os motores servo, configurar notificações para chamadas e mensagens, bem como personalizar o robot. Há também planos para implementar recursos avançados, como a identificação do humor do usuário, comandos de voz e a integração com aplicativos populares como YouTube ou Spotify. No entanto, a viabilidade dessas adições dependerá do progresso do projeto, sem garantias de implementação definitiva.
